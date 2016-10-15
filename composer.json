@@ -1,0 +1,30 @@
+{
+    "name": "midnite81/geolocation",
+    "description": "A laravel package to hook into IP Info DB Service",
+    "keywords": ["sms", "laravel"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Simon Rogers",
+            "email": "webdev@centralblue.co.uk"
+        }
+    ],
+    "require": {
+        "php": ">=5.5.9",
+        "laravel/framework": "5.*",
+        "guzzlehttp/guzzle": "^6.2"
+    },
+    "require-dev": {
+
+    },
+    "autoload": {
+        "psr-4": {
+            "Midnite81\\GeoLocation\\": "src/"
+        }
+    },
+    "extra": {
+        "component": "package",
+        "frameworks": ["Laravel 5"]
+    },
+    "minimum-stability": "stable"
+}
