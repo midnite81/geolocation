@@ -87,4 +87,4 @@ You will need to add the following to your `.env` file and update these with you
     $ipLocation->getTimeZone(); // timezone of the IP e.g.
     $ipLocation->getAddressString(); // gets the city, region and country as a string
     $ipLocation->toArray(); // returns object as an array
-    $ipLocation->toJson(); returns object as a json object
+    $ipLocation->toJson(); // returns object as a json object
