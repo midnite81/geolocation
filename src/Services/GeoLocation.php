@@ -4,6 +4,7 @@ namespace Midnite81\GeoLocation\Services;
 use GuzzleHttp\Client;
 use Illuminate\Support\Facades\Cache;
 use Midnite81\GeoLocation\Contracts\Services\GeoLocation as GeoLocationContract;
+use Midnite81\GeoLocation\Exceptions\PrecisionNotKnownException;
 
 class GeoLocation implements GeoLocationContract
 {
@@ -13,7 +14,8 @@ class GeoLocation implements GeoLocationContract
      *
      * @param $ip
      * @param $precision
-     * @return Midnite81\GeoLocation\Services\IpLocation
+     * @return IpLocation
+     * @throws PrecisionNotKnownException
      */
     public function get($ip, $precision)
     {
