@@ -1,7 +1,7 @@
 # Geolocation [![Latest Stable Version](https://poser.pugx.org/midnite81/geolocation/version)](https://packagist.org/packages/midnite81/geolocation) [![Total Downloads](https://poser.pugx.org/midnite81/geolocation/downloads)](https://packagist.org/packages/midnite81/geolocation) [![Latest Unstable Version](https://poser.pugx.org/midnite81/geolocation/v/unstable)](https://packagist.org/packages/midnite81/geolocation) [![License](https://poser.pugx.org/midnite81/geolocation/license.svg)](https://packagist.org/packages/midnite81/geolocation)
 A IP Info DB integration for Laravel
 
-#Installation
+# Installation
 
 This package requires PHP 5.6+, and includes a Laravel 5 Service Provider and Facade.
 
@@ -16,7 +16,7 @@ Run `composer install` or `composer update` to download the dependencies or you 
 At this point some users may need to run the command `composer dump-autoload`. Alternatively, you can run `php artisan optimize`
 which should include the dump-autoload command.
 
-##Laravel 5 Integration
+## Laravel 5 Integration
 
 To use the package with Laravel 5 firstly add the Messaging service provider to the list of service providers 
 in `app/config/app.php`.
