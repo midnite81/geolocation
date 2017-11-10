@@ -23,7 +23,7 @@ in `app/config/app.php`.
 
     'providers' => [
 
-      Midnite81\Geolocation\GeoLocationServiceProvider::class
+      Midnite81\GeoLocation\GeoLocationServiceProvider::class
               
     ];
     
