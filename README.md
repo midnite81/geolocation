@@ -18,7 +18,7 @@ which should include the dump-autoload command.
 
 ## Laravel 5 Integration
 
-To use the package with Laravel 5 firstly add the Messaging service provider to the list of service providers 
+To use the package with Laravel 5 firstly add the GeoLocation service provider to the list of service providers 
 in `app/config/app.php`.
 
     'providers' => [
