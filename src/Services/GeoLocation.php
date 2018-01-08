@@ -36,6 +36,7 @@ class GeoLocation implements GeoLocationContract
      *
      * @param $ip
      * @return IpLocation
+     * @throws PrecisionNotKnownException
      */
     public function getCity($ip)
     {
@@ -47,6 +48,7 @@ class GeoLocation implements GeoLocationContract
      *
      * @param $ip
      * @return IpLocation
+     * @throws PrecisionNotKnownException
      */
     public function getCountry($ip)
     {
