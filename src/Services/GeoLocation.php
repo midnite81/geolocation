@@ -61,6 +61,7 @@ class GeoLocation implements GeoLocationContract
      * @param $ip
      * @param $precision
      * @return \Psr\Http\Message\StreamInterface
+     * @codeCoverageIgnore
      */
     protected function requestData($ip, $precision)
     {
@@ -91,6 +92,7 @@ class GeoLocation implements GeoLocationContract
      * @param $ip
      * @param string $precision
      * @return string
+     * @codeCoverageIgnore
      */
     protected function getConnectionUrl($ip, $precision = 'city')
     {
@@ -146,6 +148,7 @@ class GeoLocation implements GeoLocationContract
      *
      * @param $string
      * @return string
+     * @codeCoverageIgnore
      */
     protected function signature($string)
     {
