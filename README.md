@@ -39,7 +39,7 @@ Add the `GeoLocation` facade to your aliases array.
 Publish the config and migration files using 
 `php artisan vendor:publish --provider="Midnite81\GeoLocation\GeoLocationServiceProvider"`
     
-#Configuration File
+# Configuration File
 
 Once you have published the config files, you will find a `geolocation.php` file in the `config` folder. You should 
 look through these settings and update these where necessary. 
