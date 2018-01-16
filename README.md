@@ -58,17 +58,17 @@ You will need to add the following to your `.env` file and update these with you
     
     public function index(GeoLocation $geo, Request $request) 
     {
-        $location = $geo->getCity($request->ip());
+        $ipLocation = $geo->getCity($request->ip());
     
-        // $location is an IpLocation Object
+        // $ipLocation is an IpLocation Object
         
-        echo $location->ipAddress; // e.g. 127.0.0.1
+        echo $ipLocation->ipAddress; // e.g. 127.0.0.1
         
-        echo $location->getAddressString(); // e.g. London, United Kingdom
+        echo $ipLocation->getAddressString(); // e.g. London, United Kingdom
         
         // the object has a toJson() and toArray() method on it 
         // so you can die and dump an array.
-        dd($location->toArray()); 
+        dd($ipLocation->toArray()); 
 
     }
     
