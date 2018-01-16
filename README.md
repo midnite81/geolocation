@@ -51,6 +51,10 @@ You will need to add the following to your `.env` file and update these with you
     GEOLOCATION_API_KEY=<key>
     GEOLOCATION_CACHE=<duration_in_minutes>
 
+# Get your GeoLocation API Key
+
+Before using this package you must get an API Key from IP Info DB. Please access http://ipinfodb.com/register.php and after registering and confirming your email address your api key will be show. Please copy and set to your `.env` file on `GEOLOCATION_API_KEY` option.
+
 # Example Usage
 
     use Midnite81\GeoLocation\Contracts\Services\GeoLocation;
@@ -58,17 +62,17 @@ You will need to add the following to your `.env` file and update these with you
     
     public function index(GeoLocation $geo, Request $request) 
     {
-        $location = $geo->getCity($request->ip());
+        $ipLocation = $geo->getCity($request->ip());
     
-        // $location is an IpLocation Object
+        // $ipLocation is an IpLocation Object
         
-        echo $location->ipAddress; // e.g. 127.0.0.1
+        echo $ipLocation->ipAddress; // e.g. 127.0.0.1
         
-        echo $location->getAddressString(); // e.g. London, United Kingdom
+        echo $ipLocation->getAddressString(); // e.g. London, United Kingdom
         
         // the object has a toJson() and toArray() method on it 
         // so you can die and dump an array.
-        dd($location->toArray()); 
+        dd($ipLocation->toArray()); 
 
     }
     
