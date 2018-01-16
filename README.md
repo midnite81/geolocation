@@ -51,6 +51,10 @@ You will need to add the following to your `.env` file and update these with you
     GEOLOCATION_API_KEY=<key>
     GEOLOCATION_CACHE=<duration_in_minutes>
 
+# Get your GeoLocation API Key
+
+Before using this package you must get an API Key from IP Info DB. Please access http://ipinfodb.com/register.php and after registering and confirming your email address your api key will be show. Please copy and set to your `.env` file on `GEOLOCATION_API_KEY` option.
+
 # Example Usage
 
     use Midnite81\GeoLocation\Contracts\Services\GeoLocation;
