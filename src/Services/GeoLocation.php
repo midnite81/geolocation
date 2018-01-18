@@ -17,7 +17,7 @@ class GeoLocation implements GeoLocationContract
      * @return IpLocation
      * @throws PrecisionNotKnownException
      */
-    public function get($ip, $precision)
+    public function get($ip, $precision = 'city')
     {
 
         if ($this->acceptedPrecision($precision)) {

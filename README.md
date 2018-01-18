@@ -63,6 +63,8 @@ Before using this package you must get an API Key from IP Info DB. Please access
     public function index(GeoLocation $geo, Request $request) 
     {
         $ipLocation = $geo->getCity($request->ip());
+        
+        // if you do $geo->get($request->ip()), the default precision is now city
     
         // $ipLocation is an IpLocation Object
         

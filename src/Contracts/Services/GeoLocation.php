@@ -12,7 +12,7 @@ interface GeoLocation
      * @param $precision
      * @return Midnite81\GeoLocation\Services\IpLocation
      */
-    public function get($ip, $precision);
+    public function get($ip, $precision = 'city');
 
     /**
      * Get IP information with City Precision
