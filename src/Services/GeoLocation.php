@@ -77,8 +77,10 @@ class GeoLocation implements GeoLocationContract
             $result = $client->request('get', $this->getConnectionUrl($ip, $precision));
 
             $body = $result->getBody();
+            
+            $cacheDuration = config('geolocation.cache-duration');
 
-            Cache::put('geolocation.' . $this->signature($this->getConnectionUrl($ip, $precision)), (string)$body, config('geolocation.cache-duration'));
+            Cache::put('geolocation.' . $this->signature($this->getConnectionUrl($ip, $precision)), (string)$body, settype($cacheDuration, 'integer'));
 
             return (string)$body;
         }
