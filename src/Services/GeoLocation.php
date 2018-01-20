@@ -78,7 +78,9 @@ class GeoLocation implements GeoLocationContract
 
             $body = $result->getBody();
 
-            Cache::put('geolocation.' . $this->signature($this->getConnectionUrl($ip, $precision)), (string)$body, config('geolocation.cache-duration'));
+            Cache::put('geolocation.' . $this->signature($this->getConnectionUrl($ip, $precision)),
+                        (string)$body,
+                        (int)config('geolocation.cache-duration'));
 
             return (string)$body;
         }
