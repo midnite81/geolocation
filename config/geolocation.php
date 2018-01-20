@@ -30,7 +30,7 @@ return [
     /*
        * How long should the request response be cached for (mins)
        */
-    'cache-duration' => env('GEOLOCATION_CACHE', '1440'),
+    'cache-duration' => env('GEOLOCATION_CACHE', 1440),
 
 
 ];
