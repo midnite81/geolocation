@@ -7,7 +7,6 @@
          beStrictAboutOutputDuringTests="true"
          beStrictAboutTodoAnnotatedTests="true"
          verbose="true"
-         printerClass="Sempro\PHPUnitPrettyPrinter\PrettyPrinter"
     >
     <testsuite name="default">
         <directory suffix="Test.php">tests</directory>
