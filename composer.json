@@ -36,7 +36,9 @@
     "extra": {
         "component": "package",
         "frameworks": [
-            "Laravel 5"
+            "Laravel 5",
+            "Laravel 6",
+            "Laravel 7"
         ]
     },
     "minimum-stability": "stable"
