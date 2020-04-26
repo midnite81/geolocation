@@ -27,7 +27,7 @@ class Upgrade implements UpdateHelperInterface
             $version = $dependencies[$this->packageName];
             if ($this->version1($version)) {
                 $this->yellow('****');
-                $this->yellow("Please considering {$this->packageName} to version 2 or greater. Version 1 has been depreciated because of an issue with PSR-4 and composer v2");
+                $this->yellow("Please consider upgrading {$this->packageName} to version 2 or greater. Version 1 has been depreciated because of an issue with PSR-4 and composer v2");
                 $this->yellow('****');
             }
         }
