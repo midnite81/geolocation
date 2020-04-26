@@ -3,7 +3,7 @@ namespace Midnite81\GeoLocation\Facades;
 
 use Illuminate\Support\Facades\Facade;
 
-class Geolocation extends Facade
+class GeoLocation extends Facade
 {
     /**
      * Get the registered name of the component.
