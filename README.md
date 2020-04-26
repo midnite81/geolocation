@@ -8,7 +8,7 @@ This package requires PHP 5.6+, and includes a Laravel 5 Service Provider and Fa
 
 To install through composer include the package in your `composer.json`.
 
-    "midnite81/geolocation": "1.*"
+    "midnite81/geolocation": "^2.0"
 
 Run `composer install` or `composer update` to download the dependencies or you can run `composer require midnite81/geolocation`.
 
