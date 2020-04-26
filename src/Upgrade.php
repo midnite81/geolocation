@@ -25,8 +25,6 @@ class Upgrade implements UpdateHelperInterface
 
         if (array_key_exists($this->packageName, $dependencies)) {
             $version = $dependencies[$this->packageName];
-            $helper->write($this->packageName . ' is installed as version '
-                . $version);
             if ($this->version1($version)) {
                 $this->yellow('****');
                 $this->yellow("Please considering {$this->packageName} to version 2 or greater. Version 1 has been depreciated because of an issue with PSR-4 and composer v2");
