@@ -26,24 +26,15 @@ Run `composer install` or `composer update` to download the dependencies, or you
 
 ## Laravel 5 Integration
 
-
-
-To use the package with Laravel 5 firstly add the GeoLocation service provider to the 
-list of service providers 
+This package makes use of Laravel's auto package loader, so you shouldn't need to add this
+to your config/app.php file. However, if you've disabled this then you'll need to  add the 
+GeoLocation service provider to the list of service providers 
 in `app/config/app.php`.
 
     'providers' => [
 
       Midnite81\GeoLocation\GeoLocationServiceProvider::class
               
-    ];
-    
-Add the `GeoLocation` facade to your aliases array.
-
-    'aliases' => [
-
-      'GeoLocation' => Midnite81\GeoLocation\Facades\GeoLocation::class,
-      
     ];
     
 Publish the config and migration files using 
