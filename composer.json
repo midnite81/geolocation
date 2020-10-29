@@ -51,10 +51,14 @@
     "extra": {
         "component": "package",
         "frameworks": [
-            "Laravel 5",
             "Laravel 6",
             "Laravel 7"
-        ]
+        ],
+        "laravel": {
+            "providers": [
+                "Midnite81\\GeoLocation\\GeoLocationServiceProvider"
+            ]
+        }
     },
     "minimum-stability": "stable"
 }

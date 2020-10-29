@@ -4,6 +4,8 @@ namespace Midnite81\GeoLocation\Tests\Unit\Services;
 
 use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\Psr7\Response;
+use Illuminate\Cache\Repository;
+use Illuminate\Contracts\Container\BindingResolutionException;
 use Midnite81\GeoLocation\Contracts\Services\GeoLocationInterface;
 use Midnite81\GeoLocation\Exceptions\PrecisionNotKnownException;
 use Midnite81\GeoLocation\Services\GeoLocation;
@@ -24,6 +26,7 @@ class GeoLocationTest extends TestCase
 
     /**
      * @before
+     * @throws BindingResolutionException
      */
     public function setup(): void
     {
@@ -32,8 +35,9 @@ class GeoLocationTest extends TestCase
         $this->client->shouldReceive('request')
             ->withArgs(['get', M::type('string')])
             ->andReturn($this->results());
+        $cache = app()->make(Repository::class);
 
-        $this->geolocation = new GeoLocation($this->client);
+        $this->geolocation = new GeoLocation($this->client, $cache);
     }
 
     protected function tearDown(): void
@@ -46,8 +50,7 @@ class GeoLocationTest extends TestCase
      */
     public function it_implements_the_contract()
     {
-        $this->assertInstanceOf(GeoLocationInterface::class, $this->geolocation
-        );
+        $this->assertInstanceOf(GeoLocationInterface::class, $this->geolocation);
     }
 
     /**

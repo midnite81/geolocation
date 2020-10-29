@@ -4,7 +4,7 @@ namespace Midnite81\GeoLocation\Services;
 
 use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Exception\GuzzleException;
-use Illuminate\Support\Facades\Cache;
+use Illuminate\Cache\Repository;
 use Midnite81\GeoLocation\Contracts\Services\GeoLocationInterface as GeoLocationContract;
 use Midnite81\GeoLocation\Exceptions\PrecisionNotKnownException;
 
@@ -12,9 +12,18 @@ class GeoLocation implements GeoLocationContract
 {
     protected ClientInterface $client;
 
-    public function __construct(ClientInterface $client)
+    protected Repository $cache;
+
+    /**
+     * GeoLocation constructor.
+     *
+     * @param ClientInterface $client
+     * @param Repository         $cache
+     */
+    public function __construct(ClientInterface $client, Repository $cache)
     {
         $this->client = $client;
+        $this->cache = $cache;
     }
 
     /**
@@ -106,14 +115,14 @@ class GeoLocation implements GeoLocationContract
     protected function requestData(string $ip, string $precision): string
     {
 
-        if (Cache::has('geolocation.' . $this->signature($this->getConnectionUrl($ip, $precision)))) {
-            return Cache::get('geolocation.' . $this->signature($this->getConnectionUrl($ip, $precision)));
+        if ($this->cache->has('geolocation.' . $this->signature($this->getConnectionUrl($ip, $precision)))) {
+            return $this->cache->get('geolocation.' . $this->signature($this->getConnectionUrl($ip, $precision)));
         } else {
             $result = $this->client->request('get', $this->getConnectionUrl($ip, $precision));
 
             $body = $result->getBody();
 
-            Cache::put(
+            $this->cache->put(
                 'geolocation.' . $this->signature($this->getConnectionUrl($ip, $precision)),
                 (string)$body,
                 (int)config('geolocation.cache-duration')
