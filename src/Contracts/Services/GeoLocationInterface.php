@@ -2,32 +2,32 @@
 
 namespace Midnite81\GeoLocation\Contracts\Services;
 
-interface GeoLocation
-{
+use Midnite81\GeoLocation\Services\IpLocation;
 
+interface GeoLocationInterface
+{
     /**
      * Get IP information
      *
-     * @param $ip
-     * @param $precision
-     * @return Midnite81\GeoLocation\Services\IpLocation
+     * @param  $ip
+     * @param  $precision
+     * @return IpLocation
      */
-    public function get($ip, $precision = 'city');
+    public function get(string $ip, string $precision = 'city');
 
     /**
      * Get IP information with City Precision
      *
-     * @param $ip
+     * @param  $ip
      * @return IpLocation
      */
-    public function getCity($ip);
+    public function getCity(string $ip);
 
     /**
      * Get IP information with Country Precision
      *
-     * @param $ip
+     * @param  $ip
      * @return IpLocation
      */
-    public function getCountry($ip);
-
+    public function getCountry(string $ip);
 }

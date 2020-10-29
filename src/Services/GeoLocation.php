@@ -1,44 +1,54 @@
 <?php
+
 namespace Midnite81\GeoLocation\Services;
 
-use GuzzleHttp\Client;
+use GuzzleHttp\ClientInterface;
+use GuzzleHttp\Exception\GuzzleException;
 use Illuminate\Support\Facades\Cache;
-use Midnite81\GeoLocation\Contracts\Services\GeoLocation as GeoLocationContract;
+use Midnite81\GeoLocation\Contracts\Services\GeoLocationInterface as GeoLocationContract;
 use Midnite81\GeoLocation\Exceptions\PrecisionNotKnownException;
 
 class GeoLocation implements GeoLocationContract
 {
+    protected ClientInterface $client;
+
+    public function __construct(ClientInterface $client)
+    {
+        $this->client = $client;
+    }
 
     /**
      * Get IP information
      *
-     * @param $ip
-     * @param $precision
+     * @param string $ip
+     * @param string $precision
+     *
      * @return IpLocation
+     * @throws GuzzleException
      * @throws PrecisionNotKnownException
      */
-    public function get($ip, $precision = 'city')
+    public function get(string $ip, string $precision = 'city'): IpLocation
     {
 
         if ($this->acceptedPrecision($precision)) {
-
             $response = $this->requestData($ip, $precision);
 
             return $this->formatResponse($response);
         } else {
             throw new PrecisionNotKnownException;
         }
-
     }
 
     /**
      * Get IP information with City Precision
      *
-     * @param $ip
+     * @param string $ip
+     *
      * @return IpLocation
+     * @throws GuzzleException
      * @throws PrecisionNotKnownException
      */
-    public function getCity($ip)
+    public function getCity(string $ip): IpLocation
     {
         return $this->get($ip, 'city');
     }
@@ -46,57 +56,26 @@ class GeoLocation implements GeoLocationContract
     /**
      * Get IP information with Country Precision
      *
-     * @param $ip
+     * @param string $ip
+     *
      * @return IpLocation
+     * @throws GuzzleException
      * @throws PrecisionNotKnownException
      */
-    public function getCountry($ip)
+    public function getCountry(string $ip): IpLocation
     {
         return $this->get($ip, 'country');
     }
 
     /**
-     * Request Data
-     *
-     * @param $ip
-     * @param $precision
-     * @return \Psr\Http\Message\StreamInterface
-     * @codeCoverageIgnore
-     */
-    protected function requestData($ip, $precision)
-    {
-
-        if (Cache::has('geolocation.' . $this->signature($this->getConnectionUrl($ip, $precision)))) {
-
-            return Cache::get('geolocation.' . $this->signature($this->getConnectionUrl($ip, $precision)));
-
-        } else {
-
-            $client = new Client();
-
-            $result = $client->request('get', $this->getConnectionUrl($ip, $precision));
-
-            $body = $result->getBody();
-
-            Cache::put('geolocation.' . $this->signature($this->getConnectionUrl($ip, $precision)),
-                        (string)$body,
-                        (int)config('geolocation.cache-duration'));
-
-            return (string)$body;
-        }
-
-
-    }
-
-    /**
      * Create a connection url
      *
-     * @param $ip
+     * @param string $ip
      * @param string $precision
+     *
      * @return string
-     * @codeCoverageIgnore
      */
-    protected function getConnectionUrl($ip, $precision = 'city')
+    protected function getConnectionUrl(string $ip, string $precision = 'city'): string
     {
         $precision = ($precision == 'city') ? 'api-city' : 'api-country';
 
@@ -113,29 +92,57 @@ class GeoLocation implements GeoLocationContract
         ];
 
         return implode('/', $url) . '?' . http_build_query($queryString);
+    }
 
+    /**
+     * Request Data
+     *
+     * @param string $ip
+     * @param string $precision
+     *
+     * @return string
+     * @throws GuzzleException
+     */
+    protected function requestData(string $ip, string $precision): string
+    {
+
+        if (Cache::has('geolocation.' . $this->signature($this->getConnectionUrl($ip, $precision)))) {
+            return Cache::get('geolocation.' . $this->signature($this->getConnectionUrl($ip, $precision)));
+        } else {
+            $result = $this->client->request('get', $this->getConnectionUrl($ip, $precision));
+
+            $body = $result->getBody();
+
+            Cache::put(
+                'geolocation.' . $this->signature($this->getConnectionUrl($ip, $precision)),
+                (string)$body,
+                (int)config('geolocation.cache-duration')
+            );
+
+            return (string)$body;
+        }
     }
 
     /**
      * Return the format in an IpLocation Object
      *
-     * @param $response
+     * @param string $response
+     *
      * @return IpLocation
      */
-    protected function formatResponse($response)
+    protected function formatResponse(string $response): IpLocation
     {
-        $ip = new IpLocation($response);
-
-        return $ip;
+        return new IpLocation($response);
     }
 
     /**
      * Checks to see if the precision given is a valid one
      *
-     * @param $precision
+     * @param string $precision
+     *
      * @return bool
      */
-    protected function acceptedPrecision($precision)
+    protected function acceptedPrecision(string $precision): bool
     {
         $acceptedPrecisions = [
             'city',
@@ -148,13 +155,12 @@ class GeoLocation implements GeoLocationContract
     /**
      * Returns signature
      *
-     * @param $string
+     * @param string $string
+     *
      * @return string
-     * @codeCoverageIgnore
      */
-    protected function signature($string)
+    protected function signature(string $string): string
     {
         return base64_encode($string);
     }
-
 }

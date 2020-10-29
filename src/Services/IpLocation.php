@@ -3,23 +3,28 @@ namespace Midnite81\GeoLocation\Services;
 
 class IpLocation
 {
-    public $statusCode;
-    public $statusMessage;
-    public $ipAddress;
-    public $countryCode;
-    public $countryName;
-    public $regionName;
-    public $cityName;
-    public $zipCode;
-    public $latitude;
-    public $longitude;
-    public $timeZone;
-    public $addressString;
+    public string $statusCode = "";
+    public string $statusMessage = "";
+    public string $ipAddress = "";
+    public string $countryCode = "";
+    public string $countryName = "";
+    public string $regionName = "";
+    public string $cityName = "";
+    public string $zipCode = "";
+    public string $latitude = "";
+    public string $longitude = "";
+    public string $timeZone = "";
+    public string $addressString = "";
 
-    public function __construct($response = null)
+    /**
+     * IpLocation constructor.
+     *
+     * @param string|null $response
+     */
+    public function __construct(?string $response = null)
     {
         if (! empty($response)) {
-            $this->addData($response);
+            $this->parseData($response);
         }
     }
 
@@ -28,7 +33,7 @@ class IpLocation
      *
      * @return string
      */
-    public function createAddressString()
+    public function createAddressString(): string
     {
 
         $address = [
@@ -37,7 +42,7 @@ class IpLocation
             $this->countryName
         ];
 
-        foreach($address as $k=>$v) {
+        foreach ($address as $k => $v) {
             if (empty($v)) {
                 unset($address[$k]);
             }
@@ -46,104 +51,131 @@ class IpLocation
         return implode(', ', $address);
     }
 
-    public function toArray()
+    /**
+     * Returns the class properties as an array
+     *
+     * @return array
+     */
+    public function toArray(): array
     {
         return get_object_vars($this);
     }
 
     /**
      * Object variables as Json String
+     *
+     * @return string
      */
-    public function toJson()
+    public function toJson(): string
     {
         return json_encode($this->toArray());
     }
 
     /**
-     * @return mixed
+     * Get the status code
+     *
+     * @return string
      */
-    public function getStatusCode()
+    public function getStatusCode(): string
     {
         return $this->statusCode;
     }
 
     /**
-     * @param mixed $statusCode
+     * Set the status code
+     *
+     * @param string $statusCode
+     *
      * @return IpLocation
      */
-    public function setStatusCode($statusCode)
+    public function setStatusCode(string $statusCode): IpLocation
     {
         $this->statusCode = $statusCode;
         return $this;
     }
 
     /**
-     * @return mixed
+     * Get the status message
+     *
+     * @return string
      */
-    public function getStatusMessage()
+    public function getStatusMessage(): string
     {
         return $this->statusMessage;
     }
 
     /**
-     * @param mixed $statusMessage
+     * Sets the status message
+     *
+     * @param string $statusMessage
+     *
      * @return IpLocation
      */
-    public function setStatusMessage($statusMessage)
+    public function setStatusMessage(string $statusMessage): IpLocation
     {
         $this->statusMessage = $statusMessage;
         return $this;
     }
 
     /**
-     * @return mixed
+     * Get the IP address
+     *
+     * @return string
      */
-    public function getIpAddress()
+    public function getIpAddress(): string
     {
         return $this->ipAddress;
     }
 
     /**
-     * @param mixed $ipAddress
+     * Sets the IP address
+     *
+     * @param  string $ipAddress
      * @return IpLocation
      */
-    public function setIpAddress($ipAddress)
+    public function setIpAddress(string $ipAddress): IpLocation
     {
         $this->ipAddress = $ipAddress;
         return $this;
     }
 
     /**
-     * @return mixed
+     * Gets the country code of the IP
+     *
+     * @return string
      */
-    public function getCountryCode()
+    public function getCountryCode(): string
     {
         return $this->countryCode;
     }
 
     /**
-     * @param mixed $countryCode
+     * @param  string $countryCode
      * @return IpLocation
      */
-    public function setCountryCode($countryCode)
+    public function setCountryCode(string $countryCode): IpLocation
     {
         $this->countryCode = $countryCode;
         return $this;
     }
 
     /**
-     * @return mixed
+     * Gets the country name of the IP
+     *
+     * @return string
      */
-    public function getCountryName()
+    public function getCountryName(): string
     {
         return $this->countryName;
     }
 
     /**
-     * @param mixed $countryName
+     * Sets the country name of the IP
+     *
+     * @param  string $countryName
      * @return IpLocation
      */
-    public function setCountryName($countryName)
+    public function setCountryName(string $countryName): IpLocation
     {
         $this->countryName = $countryName;
         return $this;
@@ -151,144 +183,173 @@ class IpLocation
 
 
     /**
-     * @return mixed
+     * Gets the name of the IP
+     *
+     * @return string
      */
-    public function getRegionName()
+    public function getRegionName(): string
     {
         return $this->regionName;
     }
 
     /**
-     * @param mixed $regionName
+     * Sets the region of the IP
+     *
+     * @param  string $regionName
      * @return IpLocation
      */
-    public function setRegionName($regionName)
+    public function setRegionName(string $regionName): IpLocation
     {
         $this->regionName = $regionName;
         return $this;
     }
 
     /**
-     * @return mixed
+     * Gets the city name of the IP
+     *
+     * @return string
      */
-    public function getCityName()
+    public function getCityName(): string
     {
         return $this->cityName;
     }
 
     /**
-     * @param mixed $cityName
+     * Set the City Name of the IP
+     *
+     * @param  string $cityName
      * @return IpLocation
      */
-    public function setCityName($cityName)
+    public function setCityName(string $cityName): IpLocation
     {
         $this->cityName = $cityName;
         return $this;
     }
 
     /**
-     * @return mixed
+     * Get Post Code of the IP
+     *
+     * @return string
      */
-    public function getPostCode()
+    public function getPostCode(): string
     {
         return $this->zipCode;
     }
 
     /**
-     * @return mixed
+     * Get Zip Code of the IP
+     *
+     * @return string
      */
-    public function getZipCode()
+    public function getZipCode(): string
     {
         return $this->zipCode;
     }
 
     /**
-     * @param mixed $zipCode
+     * @param  string $zipCode
      * @return IpLocation
      */
-    public function setZipCode($zipCode)
+    public function setZipCode(string $zipCode)
     {
         $this->zipCode = $zipCode;
         return $this;
     }
 
     /**
-     * @return mixed
+     * Gets the Latitude of the Ip
+     *
+     * @return string
      */
-    public function getLatitude()
+    public function getLatitude(): string
     {
         return $this->latitude;
     }
 
     /**
-     * @param mixed $latitude
+     * Sets the latitude of the IP
+     *
+     * @param  string $latitude
      * @return IpLocation
      */
-    public function setLatitude($latitude)
+    public function setLatitude(string $latitude): IpLocation
     {
         $this->latitude = $latitude;
         return $this;
     }
 
     /**
-     * @return mixed
+     * Get Longitude of the ip
+     *
+     * @return string
      */
-    public function getLongitude()
+    public function getLongitude(): string
     {
         return $this->longitude;
     }
 
     /**
-     * @param mixed $longitude
+     * Sets the longitude of the IP
+     *
+     * @param  string $longitude
      * @return IpLocation
      */
-    public function setLongitude($longitude)
+    public function setLongitude(string $longitude): IpLocation
     {
         $this->longitude = $longitude;
         return $this;
     }
 
     /**
-     * @return mixed
+     * Gets the time zone of the IP
+     *
+     * @return string
      */
-    public function getTimeZone()
+    public function getTimeZone(): string
     {
         return $this->timeZone;
     }
 
     /**
-     * @param mixed $timeZone
+     * Sets the time zone of the IP
+     *
+     * @param  string $timeZone
      * @return IpLocation
      */
-    public function setTimeZone($timeZone)
+    public function setTimeZone(string $timeZone): IpLocation
     {
         $this->timeZone = $timeZone;
         return $this;
     }
 
     /**
-     * @return mixed
+     * Gets the city, region and country
+     *
+     * @return string
      */
-    public function getAddressString()
+    public function getAddressString(): string
     {
         return $this->addressString;
     }
 
     /**
-     * @param mixed $addressString
+     * Sets the city, region and country
+     *
+     * @param  string $addressString
      * @return $this
      */
-    public function setAddressString($addressString)
+    public function setAddressString(string $addressString)
     {
         $this->addressString = $addressString;
         return $this;
     }
 
-
     /**
-     * @param $response
+     * Parses json data into the class
+     *
+     * @param string $response
      */
-    public function addData($response)
+    protected function parseData(string $response)
     {
         $response = json_decode($response);
         $this->statusCode = ! empty($resp = $response->statusCode) ? $resp : '';
@@ -304,5 +365,4 @@ class IpLocation
         $this->timeZone = ! empty($resp = $response->timeZone) ? $resp : '';
         $this->addressString = $this->createAddressString();
     }
-
 }

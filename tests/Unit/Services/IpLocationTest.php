@@ -1,26 +1,20 @@
 <?php
 
-namespace Midnite81\GeoLocation\Services\Tests;
+namespace Midnite81\GeoLocation\Tests\Unit\Services;
 
 use Midnite81\GeoLocation\Services\IpLocation;
 use PHPUnit\Framework\TestCase;
 
 class IpLocationTest extends TestCase
 {
-    /**
-     * @var IpLocation
-     */
-    protected $ipLocation;
+    protected IpLocation $ipLocation;
 
-    /**
-     * @var IpLocation
-     */
-    protected $filledIpLocation;
+    protected IpLocation $filledIpLocation;
 
     /**
      * @before
      */
-    public function setup()
+    public function setup(): void
     {
         $this->ipLocation = new IpLocation();
 
@@ -34,8 +28,17 @@ class IpLocationTest extends TestCase
     {
         $this->ipLocation->setCityName('Crystal Palace')->setRegionName('London')->setCountryName('England');
 
-        $this->assertInternalType('string', $this->ipLocation->createAddressString());
+        $this->assertIsString($this->ipLocation->createAddressString());
         $this->assertEquals('Crystal Palace, London, England', $this->ipLocation->createAddressString());
+    }
+
+    /** @test */
+    public function it_creates_an_address_with_no_gaps_when_region_is_missing()
+    {
+        $this->ipLocation->setCityName('Crystal Palace')->setCountryName('England');
+
+        $this->assertIsString($this->ipLocation->createAddressString());
+        $this->assertEquals('Crystal Palace, England', $this->ipLocation->createAddressString());
     }
 
     /**
@@ -43,7 +46,7 @@ class IpLocationTest extends TestCase
      */
     public function it_can_be_exported_as_an_array()
     {
-        $this->assertInternalType('array', $this->filledIpLocation->toArray());
+        $this->assertIsArray($this->filledIpLocation->toArray());
         $this->arrayHasKey('statusCode');
         $this->arrayHasKey('statusMessage');
         $this->arrayHasKey('ipAddress');
@@ -57,13 +60,13 @@ class IpLocationTest extends TestCase
         $this->arrayHasKey('timeZone');
         $this->arrayHasKey('addressString');
     }
-    
-    /** 
-     * @test 
+
+    /**
+     * @test
      */
-    public function it_can_be_exported_as_json() 
+    public function it_can_be_exported_as_json()
     {
-        $this->assertInternalType('object', json_decode($this->filledIpLocation->toJson()));
+        $this->assertIsObject(json_decode($this->filledIpLocation->toJson()));
     }
 
     /**
@@ -89,7 +92,8 @@ class IpLocationTest extends TestCase
      */
     public function can_retrieve_status_message()
     {
-        $this->assertEquals(json_decode($this->results(), false)->statusMessage, $this->filledIpLocation->getStatusMessage());
+        $this->assertEquals(json_decode($this->results(), false)->statusMessage,
+            $this->filledIpLocation->getStatusMessage());
     }
 
     /**
@@ -125,7 +129,8 @@ class IpLocationTest extends TestCase
      */
     public function can_retrieve_country_code()
     {
-        $this->assertEquals(json_decode($this->results(), false)->countryCode, $this->filledIpLocation->getCountryCode());
+        $this->assertEquals(json_decode($this->results(), false)->countryCode,
+            $this->filledIpLocation->getCountryCode());
     }
 
     /**
@@ -143,7 +148,8 @@ class IpLocationTest extends TestCase
      */
     public function can_retrieve_country_name()
     {
-        $this->assertEquals(json_decode($this->results(), false)->countryName, $this->filledIpLocation->getCountryName());
+        $this->assertEquals(json_decode($this->results(), false)->countryName,
+            $this->filledIpLocation->getCountryName());
     }
 
     /**
@@ -278,7 +284,8 @@ class IpLocationTest extends TestCase
      */
     public function can_retrieve_address_string()
     {
-        $this->assertEquals(json_decode($this->results(), false)->addressString, $this->filledIpLocation->getAddressString());
+        $this->assertEquals(json_decode($this->results(), false)->addressString,
+            $this->filledIpLocation->getAddressString());
     }
 
     /**

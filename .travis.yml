@@ -1,10 +1,6 @@
 language: php
 
 php:
-  - 7.0
-  - 7.1
-  - 7.2
-  - 7.3
   - 7.4
 
 before_script:
@@ -13,7 +9,7 @@ before_script:
 
 script:
   - mkdir -p build/logs
-  - vendor/bin/phpunit tests --coverage-clover build/logs/clover.xml
+  - vendor/bin/phpunit tests/unit  --configuration=phpunit.dist.xml --coverage-clover build/logs/clover.xml
 
 after_success:
   - php vendor/bin/coveralls -v

@@ -10,5 +10,8 @@ class GeoLocation extends Facade
      *
      * @return string
      */
-    protected static function getFacadeAccessor() { return 'midnite81.geolocation'; }
+    protected static function getFacadeAccessor()
+    {
+        return 'midnite81.geolocation';
+    }
 }

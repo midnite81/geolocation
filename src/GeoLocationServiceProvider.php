@@ -1,8 +1,11 @@
 <?php
 namespace Midnite81\GeoLocation;
 
+use GuzzleHttp\Client;
 use Illuminate\Support\ServiceProvider;
+use Midnite81\GeoLocation\Contracts\Services\GeoLocationInterface;
 use Midnite81\GeoLocation\Services\GeoLocation;
+use GuzzleHttp\ClientInterface;
 
 class GeoLocationServiceProvider extends ServiceProvider
 {
@@ -11,19 +14,21 @@ class GeoLocationServiceProvider extends ServiceProvider
      *
      * @var bool
      */
-    protected $defer = true;
+    protected bool $defer = true;
     /**
      * Bootstrap the application events.
      *
-     * @return void
+     * @return             void
      * @codeCoverageIgnore
      */
     public function boot()
     {
 
-        $this->publishes([
+        $this->publishes(
+            [
             __DIR__ . '/../config/geolocation.php' => config_path('geolocation.php')
-        ]);
+            ]
+        );
         $this->mergeConfigFrom(__DIR__ . '/../config/geolocation.php', 'geolocation');
     }
     /**
@@ -33,11 +38,11 @@ class GeoLocationServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->singleton('midnite81.geolocation', function ($app) {
-            return new GeoLocation();
-        });
+        $this->app->bind(ClientInterface::class, Client::class);
 
-        $this->app->alias('midnite81.geolocation', 'Midnite81\GeoLocation\Contracts\Services\GeoLocation');
+        $this->app->bind(GeoLocationInterface::class, GeoLocation::class);
+
+        $this->app->alias(GeoLocationInterface::class, 'midnite81.geolocation');
     }
     /**
      * Get the services provided by the provider.
@@ -46,6 +51,6 @@ class GeoLocationServiceProvider extends ServiceProvider
      */
     public function provides()
     {
-        return ['midnite81.geolocation', 'Midnite81\GeoLocation\Contracts\Services\GeoLocation'];
+        return ['midnite81.geolocation', GeoLocationInterface::class];
     }
 }
