@@ -71,10 +71,10 @@ your api key will be show. Please copy and set to your `.env` file on
 
 # Example Usage
 
-    use Midnite81\GeoLocation\Contracts\Services\GeoLocation;
+    use Midnite81\GeoLocation\Contracts\Services\GeoLocationInterface;
     use Illuminate\Http\Request;
     
-    public function index(GeoLocation $geo, Request $request) 
+    public function index(GeoLocationInterface $geo, Request $request) 
     {
         $ipLocation = $geo->getCity($request->ip());
         
