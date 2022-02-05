@@ -3,7 +3,7 @@
 
 A IP Info DB integration for Laravel
 
-# Versioning
+## Versioning
 
 |Version|Branch|PHP|Laravel|Notes|
 |---|---|---|---|---|
@@ -11,7 +11,7 @@ A IP Info DB integration for Laravel
 |^2.0|v2|\>=5.6|\>=5|Corrects issues with composer 2.0|
 |^1.0|v1|\>=5.6|\>=5|First release - not compatible with composer 2.0|
 
-# Installation
+## Installation
 
 If installing on anything below PHP 7.4, please checkout the v2 branch and follow the 
 instructions on the readme for that branch.
@@ -26,7 +26,7 @@ To install through composer include the package in your `composer.json`.
 Run `composer install` or `composer update` to download the dependencies, or you can run 
 `composer require midnite81/geolocation`.
 
-## Laravel 5 Integration
+### Laravel 5 Integration
 
 This package makes use of Laravel's auto package loader, so you shouldn't need to add this
 to your config/app.php file. However, if you've disabled this then you'll need to  add the 
@@ -44,12 +44,12 @@ Publish the config and migration files using
 php artisan vendor:publish --provider="Midnite81\GeoLocation\GeoLocationServiceProvider"
 ```
     
-# Configuration File
+## Configuration File
 
 Once you have published the config files, you will find a `geolocation.php` file in the 
 `config` folder. You should look through these settings and update these where necessary. 
 
-# Env
+## Env
 
 You will need to add the following to your `.env` file and update these with your own 
 settings
@@ -59,14 +59,14 @@ settings
     GEOLOCATION_CACHE=<duration_in_minutes>
 ```
 
-# Get your GeoLocation API Key
+## Get your GeoLocation API Key
 
 Before using this package you must get an API Key from IP Info DB. Please access 
 http://ipinfodb.com/register.php and after registering and confirming your email address 
 your api key will be show. Please copy and set to your `.env` file on 
 `GEOLOCATION_API_KEY` option.
 
-# Example Usage
+## Example Usage
 
 ```php
 use Midnite81\GeoLocation\Contracts\Services\GeoLocationInterface;
@@ -91,7 +91,7 @@ public function index(GeoLocationInterface $geo, Request $request)
 }
 ```
     
-# Methods on IpLocation
+## Methods on IpLocation
 ```php
 $ipLocation->getStatusCode(); // returns status code of request (e.g. 200)
 $ipLocation->getStatusMessage(); // returns any status message to go with code
