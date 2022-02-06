@@ -62,7 +62,7 @@ settings
 ## Get your GeoLocation API Key
 
 Before using this package you must get an API Key from IP Info DB. Please access 
-http://ipinfodb.com/register.php and after registering and confirming your email address 
+http://ipinfodb.com/register and after registering and confirming your email address 
 your api key will be show. Please copy and set to your `.env` file on 
 `GEOLOCATION_API_KEY` option.
 
