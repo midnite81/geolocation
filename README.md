@@ -55,8 +55,8 @@ You will need to add the following to your `.env` file and update these with you
 settings
 
 ```env
-    GEOLOCATION_API_KEY=<key>
-    GEOLOCATION_CACHE=<duration_in_minutes>
+GEOLOCATION_API_KEY=<key>
+GEOLOCATION_CACHE=<duration_in_minutes>
 ```
 
 ## Get your GeoLocation API Key
