@@ -4,60 +4,60 @@ A IP Info DB integration for Laravel
 
 # Versioning
 
-|Version|Branch|PHP|Laravel|Notes|
-|---|---|---|---|---|
-|^3.0|master|\>=7.4|\>=6|Latest release, facade has been removed and guzzle dependency has been updated to version 7|
-|^2.0|v2|\>=5.6|\>=5|Corrects issues with composer 2.0|
-|^1.0|v1|\>=5.6|\>=5|First release - not compatible with composer 2.0|
+| Version |Branch|PHP| Laravel |Notes|
+|---------|---|---|-----|---|
+| ^4.0    |master/v4|\>=8.1| \>=8|Update to include x, moved to php 8.1|
+| ^3.0    |v3|\>=7.4| \>=6 |Facade has been removed and guzzle dependency has been updated to version 7|
+| ^2.0    |v2|\>=5.6| \>=5 |Corrects issues with composer 2.0|
+| ^1.0    |v1|\>=5.6| \>=5 |First release - not compatible with composer 2.0|
 
 # Installation
 
-If installing on anything below PHP 7.4, please checkout the v2 branch and follow the 
+If installing on anything below PHP 8.1, please checkout the v2 or v3 branch and follow the
 instructions on the readme for that branch.
 
-This package requires PHP 7.4+, and includes a Laravel Service Provider.
+This package requires PHP 8.1+, and includes a Laravel Service Provider.
 
 To install through composer include the package in your `composer.json`.
 
-    "midnite81/geolocation": "^3.0"
+    "midnite81/geolocation": "^4.0"
 
-Run `composer install` or `composer update` to download the dependencies, or you can run 
+Run `composer install` or `composer update` to download the dependencies, or you can run
 `composer require midnite81/geolocation`.
 
-## Laravel 5 Integration
+## Laravel Integration
 
 This package makes use of Laravel's auto package loader, so you shouldn't need to add this
-to your config/app.php file. However, if you've disabled this then you'll need to  add the 
-GeoLocation service provider to the list of service providers 
+to your config/app.php file. However, if you've disabled this then you'll need to add the
+GeoLocation service provider to the list of service providers
 in `app/config/app.php`.
 
     'providers' => [
-
       Midnite81\GeoLocation\GeoLocationServiceProvider::class
-              
     ];
-    
-Publish the config and migration files using 
+
+Publish the config and migration files using
 `php artisan vendor:publish --provider="Midnite81\GeoLocation\GeoLocationServiceProvider"`
-    
+
 # Configuration File
 
-Once you have published the config files, you will find a `geolocation.php` file in the 
-`config` folder. You should look through these settings and update these where necessary. 
+Once you have published the config files, you will find a `geolocation.php` file in the
+`config` folder. You should look through these settings and update these where necessary.
 
 # Env
 
-You will need to add the following to your `.env` file and update these with your own 
+You will need to add the following to your `.env` file and update these with your own
 settings
 
     GEOLOCATION_API_KEY=<key>
     GEOLOCATION_CACHE=<duration_in_minutes>
+    GEOLOCATION_SERVICE=<service>
 
 # Get your GeoLocation API Key
 
-Before using this package you must get an API Key from IP Info DB. Please access 
-http://ipinfodb.com/register.php and after registering and confirming your email address 
-your api key will be show. Please copy and set to your `.env` file on 
+Before using this package you must get an API Key from IP Info DB. Please access
+http://ipinfodb.com/register.php and after registering and confirming your email address
+your api key will be show. Please copy and set to your `.env` file on
 `GEOLOCATION_API_KEY` option.
 
 # Example Usage
@@ -82,7 +82,7 @@ your api key will be show. Please copy and set to your `.env` file on
         dd($ipLocation->toArray()); 
 
     }
-    
+
 # Methods on IpLocation
 
     $ipLocation->getStatusCode(); // returns status code of request (e.g. 200)

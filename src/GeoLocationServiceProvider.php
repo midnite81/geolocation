@@ -1,55 +1,54 @@
 <?php
+
 namespace Midnite81\GeoLocation;
 
 use GuzzleHttp\Client;
-use Illuminate\Support\ServiceProvider;
-use Midnite81\GeoLocation\Contracts\Services\GeoLocationInterface;
-use Midnite81\GeoLocation\Services\GeoLocation;
 use GuzzleHttp\ClientInterface;
+use Illuminate\Contracts\Support\DeferrableProvider;
+use Illuminate\Support\ServiceProvider;
+use Midnite81\GeoLocation\Contracts\Services\GeoIp2LocationInterface;
+use Midnite81\GeoLocation\Contracts\Services\GeoIpInfoDbInterface;
+use Midnite81\GeoLocation\Services\GeoIp2Location;
+use Midnite81\GeoLocation\Services\GeoIpInfoDb;
 
-class GeoLocationServiceProvider extends ServiceProvider
+class GeoLocationServiceProvider extends ServiceProvider implements DeferrableProvider
 {
-    /**
-     * Indicates if loading of the provider is deferred.
-     *
-     * @var bool
-     */
-    protected bool $defer = true;
     /**
      * Bootstrap the application events.
      *
-     * @return             void
+     * @return void
      * @codeCoverageIgnore
      */
-    public function boot()
+    public function boot(): void
     {
         $this->publishes(
             [
-            __DIR__ . '/../config/geolocation.php' => config_path('geolocation.php')
+                __DIR__ . '/../config/geolocation.php' => config_path('geolocation.php'),
             ]
         );
         $this->mergeConfigFrom(__DIR__ . '/../config/geolocation.php', 'geolocation');
     }
+
     /**
      * Register the service provider.
      *
      * @return void
      */
-    public function register()
+    public function register(): void
     {
         $this->app->bind(ClientInterface::class, Client::class);
-
-        $this->app->bind(GeoLocationInterface::class, GeoLocation::class);
-
-        $this->app->alias(GeoLocationInterface::class, 'midnite81.geolocation');
+        $this->app->bind(GeoIpInfoDbInterface::class, GeoIpInfoDb::class);
+        $this->app->bind(GeoIp2LocationInterface::class, GeoIp2Location::class);
+        $this->app->alias(GeoIpInfoDbInterface::class, 'midnite81.geolocation');
     }
+
     /**
      * Get the services provided by the provider.
      *
      * @return array
      */
-    public function provides()
+    public function provides(): array
     {
-        return ['midnite81.geolocation', GeoLocationInterface::class];
+        return ['midnite81.geolocation', GeoIpInfoDbInterface::class];
     }
 }

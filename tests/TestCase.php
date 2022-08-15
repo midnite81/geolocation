@@ -11,14 +11,13 @@ use Orchestra\Testbench\TestCase as OrchestraTestCase;
 class TestCase extends OrchestraTestCase
 {
     /**
-     * @param Application $app
-     *
+     * @param  Application  $app
      * @return array|string[]
      */
     protected function getPackageProviders($app)
     {
         return [
-          GeoLocationServiceProvider::class,
+            GeoLocationServiceProvider::class,
         ];
     }
 }

@@ -3,40 +3,29 @@
 namespace Midnite81\GeoLocation\Tests\Unit;
 
 use Midnite81\GeoLocation\GeoLocationServiceProvider;
-use Midnite81\GeoLocation\Services\GeoLocation;
+use Midnite81\GeoLocation\Services\GeoIpInfoDb;
 use Midnite81\GeoLocation\Tests\TestCase;
 
-class GeoLocationServiceTest extends TestCase
-{
-    protected GeoLocationServiceProvider $serviceProvider;
+uses(TestCase::class);
 
-    public function setup(): void
-    {
-        parent::setUp();
-        $this->serviceProvider = new GeoLocationServiceProvider($this->app);
-    }
+beforeEach(function () {
+    $this->serviceProvider = new GeoLocationServiceProvider($this->app);
+});
 
-    /**
-     * @test
-     */
-    public function provides_returns_all_of_the_provided_services(): void
-    {
-        $this->assertContains('midnite81.geolocation', $this->serviceProvider->provides());
-        $this->assertContains('Midnite81\GeoLocation\Contracts\Services\GeoLocationInterface', $this->serviceProvider->provides());
-    }
+it('provides returns all of the provided services', function () {
+    $sut = $this->serviceProvider->provides();
 
-    /**
-     * @test
-     */
-    public function test_geolocation_can_be_resolved_from_the_container(): void
-    {
-        $this->serviceProvider->register();
-        $this->assertInstanceOf(GeoLocation::class, $this->app->make('Midnite81\GeoLocation\Contracts\Services\GeoLocationInterface'));
-        $this->assertInstanceOf(GeoLocation::class , $this->app->make('midnite81.geolocation'));
-    }
+    expect($sut)
+        ->toContain('midnite81.geolocation')
+        ->toContain('Midnite81\GeoLocation\Contracts\Services\GeoIpInfoDbInterface');
+});
 
-    protected function getConfig()
-    {
-        return require __DIR__ . '/../../config/geolocation.php';
-    }
-}
+test('geolocation can be resolved from the container', function () {
+    $interface = $this->app->make('Midnite81\GeoLocation\Contracts\Services\GeoIpInfoDbInterface');
+    expect($interface)
+        ->toBeInstanceOf(GeoIpInfoDb::class);
+
+    $alias = $this->app->make('midnite81.geolocation');
+    expect($alias)
+        ->toBeInstanceOf(GeoIpInfoDb::class);
+});

@@ -1,0 +1,14 @@
+{
+    "preset": "laravel",
+    "rules": {
+        "not_operator_with_space": false,
+        "not_operator_with_successor_space": false,
+        "concat_space": {
+            "spacing": "one"
+        },
+        "types_spaces": {
+            "space": "none",
+            "space_multiple_catch": "none"
+        }
+    }
+}

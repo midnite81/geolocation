@@ -1,132 +1,74 @@
 <?php
 
-namespace Midnite81\GeoLocation\Tests\Unit\Services;
+declare(strict_types=1);
 
-use GuzzleHttp\Exception\GuzzleException;
+use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Psr7\Response;
 use Illuminate\Cache\Repository;
-use Illuminate\Contracts\Container\BindingResolutionException;
-use Midnite81\GeoLocation\Contracts\Services\GeoLocationInterface;
-use Midnite81\GeoLocation\Exceptions\PrecisionNotKnownException;
-use Midnite81\GeoLocation\Services\GeoLocation;
-use Midnite81\GeoLocation\Services\IpLocation;
-use Mockery as M;
+use Midnite81\GeoLocation\Contracts\Services\GeoIpInfoDbInterface;
+use Midnite81\GeoLocation\Enums\Precision;
+use Midnite81\GeoLocation\Responses\IpInfoDbLocationResponse;
+use Midnite81\GeoLocation\Services\GeoIpInfoDb;
 use Midnite81\GeoLocation\Tests\TestCase;
-use GuzzleHttp\ClientInterface;
-use Psr\Http\Message\ResponseInterface;
 
-class GeoLocationTest extends TestCase
-{
-    protected GeoLocation $geolocation;
+uses(TestCase::class);
 
-    /**
-     * @var ClientInterface|M\LegacyMockInterface|M\MockInterface
-     */
-    protected $client;
+beforeEach(function () {
+    $json = json_encode([
+        'statusCode' => '200',
+        'statusMessage' => 'Success',
+        'ipAddress' => '127.0.0.1',
+        'countryCode' => 'gb',
+        'countryName' => 'England',
+        'regionName' => 'London',
+        'cityName' => 'Crystal Palace',
+        'zipCode' => 'S1 E22',
+        'latitude' => '50',
+        'longitude' => '50',
+        'timeZone' => '+00',
+        'addressString' => 'Crystal Palace, London, England',
+    ]);
 
-    /**
-     * @before
-     * @throws BindingResolutionException
-     */
-    public function setup(): void
-    {
-        parent::setUp();
-        $this->client = M::mock(ClientInterface::class);
-        $this->client->shouldReceive('request')
-            ->withArgs(['get', M::type('string')])
-            ->andReturn($this->results());
-        $cache = app()->make(Repository::class);
+    $response = new Response(200, [], $json);
 
-        $this->geolocation = new GeoLocation($this->client, $cache);
-    }
+    /** @var ClientInterface client */
+    $this->client = Mockery::mock(ClientInterface::class);
+    $this->client->shouldReceive('request')
+                 ->withArgs(['get', Mockery::type('string')])
+                 ->andReturn($response);
+    /** @var Repository $cache */
+    $cache = app()->make(Repository::class);
+    $this->geolocation = new GeoIpInfoDb($this->client, $cache);
+});
 
-    protected function tearDown(): void
-    {
-        M::close();
-    }
+afterAll(function () {
+    Mockery::close();
+});
 
-    /**
-     * @test
-     */
-    public function it_implements_the_contract()
-    {
-        $this->assertInstanceOf(GeoLocationInterface::class, $this->geolocation);
-    }
+it('it implements the contract', function () {
+    $this->assertInstanceOf(GeoIpInfoDbInterface::class, $this->geolocation);
+});
 
-    /**
-     * @test
-     * @throws GuzzleException
-     */
-    public function it_doesnt_except_erroneous_value_as_precision()
-    {
-        $this->expectException(PrecisionNotKnownException::class);
-        $this->geolocation->get('127.0.0.1', 'address');
-    }
+it('it accepts city as a precision', function () {
+    $location = $this->geolocation->get('127.0.0.1', Precision::City);
 
-    /**
-     * @test
-     * @throws GuzzleException|PrecisionNotKnownException
-     */
-    public function it_accepts_city_as_a_precision()
-    {
-        $location = $this->geolocation->get('127.0.0.1', 'city');
+    $this->assertInstanceOf(IpInfoDbLocationResponse::class, $location);
+});
 
-        $this->assertInstanceOf(IpLocation::class, $location);
-    }
+it('it accepts country as a precision', function () {
+    $location = $this->geolocation->get('127.0.0.1', Precision::Country);
 
-    /**
-     * @test
-     * @throws GuzzleException|PrecisionNotKnownException
-     */
-    public function it_accepts_country_as_a_precision()
-    {
-        $location = $this->geolocation->get('127.0.0.1', 'country');
+    $this->assertInstanceOf(IpInfoDbLocationResponse::class, $location);
+});
 
-        $this->assertInstanceOf(IpLocation::class, $location);
-    }
+it('get city returns data', function () {
+    $location = $this->geolocation->getCity('127.0.0.1');
 
-    /**
-     * @test
-     * @throws GuzzleException
-     * @throws PrecisionNotKnownException
-     */
-    public function get_city_returns_data()
-    {
-        $location = $this->geolocation->getCity('127.0.0.1');
+    $this->assertInstanceOf(IpInfoDbLocationResponse::class, $location);
+});
 
-        $this->assertInstanceOf(IpLocation::class, $location);
-    }
+it('get country returns data', function () {
+    $location = $this->geolocation->getCountry('127.0.0.1');
 
-    /**
-     * @test
-     * @throws GuzzleException
-     * @throws PrecisionNotKnownException
-     */
-    public function get_country_returns_data()
-    {
-        $location = $this->geolocation->getCountry('127.0.0.1');
-
-        $this->assertInstanceOf(IpLocation::class, $location);
-    }
-
-    protected function results(): ResponseInterface
-    {
-        $json = json_encode([
-            'statusCode' => '200',
-            'statusMessage' => 'Success',
-            'ipAddress' => '127.0.0.1',
-            'countryCode' => 'gb',
-            'countryName' => 'England',
-            'regionName' => 'London',
-            'cityName' => 'Crystal Palace',
-            'zipCode' => 'S1 E22',
-            'latitude' => '50',
-            'longitude' => '50',
-            'timeZone' => '+00',
-            'addressString' => 'Crystal Palace, London, England'
-        ]);
-
-        return new Response(200, [], $json);
-    }
-
-}
+    $this->assertInstanceOf(IpInfoDbLocationResponse::class, $location);
+});
