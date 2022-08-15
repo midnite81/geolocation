@@ -5,11 +5,11 @@ namespace Midnite81\GeoLocation\Services;
 use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Exception\GuzzleException;
 use Illuminate\Cache\Repository;
-use Midnite81\GeoLocation\Contracts\Services\GeoIpInfoDbInterface;
+use Midnite81\GeoLocation\Contracts\Services\IpInfoDbInterface;
 use Midnite81\GeoLocation\Enums\Precision;
 use Midnite81\GeoLocation\Responses\IpInfoDbLocationResponse;
 
-class GeoIpInfoDb implements GeoIpInfoDbInterface
+class IpInfoDb implements IpInfoDbInterface
 {
     /**
      * GeoLocation constructor.

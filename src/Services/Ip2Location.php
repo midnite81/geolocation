@@ -7,7 +7,7 @@ use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\Exception\GuzzleException;
 use Illuminate\Cache\Repository;
 use Illuminate\Support\Str;
-use Midnite81\GeoLocation\Contracts\Services\GeoIp2LocationInterface;
+use Midnite81\GeoLocation\Contracts\Services\Ip2LocationInterface;
 use Midnite81\GeoLocation\Enums\Language;
 use Midnite81\GeoLocation\Exceptions\Ip2Location\InternalServerException;
 use Midnite81\GeoLocation\Exceptions\Ip2Location\InvalidApiException;
@@ -16,7 +16,7 @@ use Midnite81\GeoLocation\Exceptions\Ip2Location\InvalidLanguageCodeException;
 use Midnite81\GeoLocation\Exceptions\Ip2Location\TranslationNotAvailableException;
 use Midnite81\GeoLocation\Responses\Ip2LocationResponse;
 
-class GeoIp2Location implements GeoIp2LocationInterface
+class Ip2Location implements Ip2LocationInterface
 {
     protected ClientInterface $client;
 
@@ -38,9 +38,15 @@ class GeoIp2Location implements GeoIp2LocationInterface
      * Get IP information
      *
      * @param  string  $ip
+     * @param  Language|null  $language
      * @return Ip2LocationResponse
      *
      * @throws GuzzleException
+     * @throws InternalServerException
+     * @throws InvalidApiException
+     * @throws InvalidIpException
+     * @throws InvalidLanguageCodeException
+     * @throws TranslationNotAvailableException
      */
     public function get(string $ip, ?Language $language = null): Ip2LocationResponse
     {
@@ -98,15 +104,14 @@ class GeoIp2Location implements GeoIp2LocationInterface
             $response = $this->client->request('get', $this->getConnectionUrl($ip, $language));
             $this->cache->put(
                 $cacheKey,
+                $response->getBody()->getContents(),
                 now()->addSeconds($cacheDuration),
-                $response->getBody()->getContents()
             );
         } catch (ClientException $e) {
             $contents = $e->getResponse()->getBody()->getContents();
             $error = json_decode($contents);
 
             match ($error->error->error_code) {
-                401 => throw new InvalidApiException(),
                 10000 => throw new InvalidApiException(),
                 10001 => throw new InvalidIpException(),
                 10002 => throw new InternalServerException(),
@@ -116,7 +121,7 @@ class GeoIp2Location implements GeoIp2LocationInterface
             };
         }
 
-        return (string) $response->getBody();
+        return isset($response) ? (string) $response->getBody() : '';
     }
 
     /**

@@ -4,15 +4,15 @@ declare(strict_types=1);
 
 namespace Midnite81\GeoLocation\Tests\Integration;
 
-use Midnite81\GeoLocation\Contracts\Services\GeoIpInfoDbInterface;
+use Midnite81\GeoLocation\Contracts\Services\IpInfoDbInterface;
 use Midnite81\GeoLocation\Responses\IpInfoDbLocationResponse;
 use Midnite81\GeoLocation\Tests\TestCase;
 
 uses(TestCase::class);
 
 it('can connect to the api and return ip-location object', function () {
-    /** @var GeoIpInfoDbInterface $sut */
-    $sut = app(GeoIpInfoDbInterface::class);
+    /** @var IpInfoDbInterface $sut */
+    $sut = app(IpInfoDbInterface::class);
 
     $result = $sut->get('8.8.8.8');
 

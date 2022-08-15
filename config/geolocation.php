@@ -57,7 +57,7 @@ return [
             /*
              * Set the default API url
              */
-            'api-url' => 'http://api.ipinfodb.com',
+            'api-url' => 'https://api.ipinfodb.com',
 
             /*
              * Set the default API version

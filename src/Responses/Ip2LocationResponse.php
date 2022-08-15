@@ -19,7 +19,7 @@ class Ip2LocationResponse extends BaseResponse
      * The IP Address
      * Availability on Free, Starter, Plus and Security Plan.
      *
-     * @var string|mixed|null
+     * @var string|null
      */
     public readonly ?string $ip;
 
@@ -27,7 +27,7 @@ class Ip2LocationResponse extends BaseResponse
      * Two-character country code based on ISO 3166.
      * Availability on Free, Starter, Plus and Security Plan.
      *
-     * @var string|mixed|null
+     * @var string|null
      */
     public readonly ?string $countryCode;
 
@@ -35,7 +35,7 @@ class Ip2LocationResponse extends BaseResponse
      * Country name based on ISO 3166.
      * Availability on Free, Starter, Plus and Security Plan.
      *
-     * @var string|mixed|null
+     * @var string|null
      */
     public readonly ?string $countryName;
 
@@ -43,7 +43,7 @@ class Ip2LocationResponse extends BaseResponse
      * Region or state name.
      * Availability on Free, Starter, Plus and Security Plan.
      *
-     * @var string|mixed|null
+     * @var string|null
      */
     public readonly ?string $regionName;
 
@@ -51,7 +51,7 @@ class Ip2LocationResponse extends BaseResponse
      * City name.
      * Availability on Free, Starter, Plus and Security Plan.
      *
-     * @var string|mixed|null
+     * @var string|null
      */
     public readonly ?string $cityName;
 
@@ -59,7 +59,7 @@ class Ip2LocationResponse extends BaseResponse
      * City latitude. Defaults to capital city latitude if city is unknown.
      * Availability on Free, Starter, Plus and Security Plan.
      *
-     * @var float|mixed|string|null
+     * @var float|null
      */
     public readonly ?float $latitude;
 
@@ -67,7 +67,7 @@ class Ip2LocationResponse extends BaseResponse
      * City longitude. Defaults to capital city longitude if city is unknown.
      * Availability on Free, Starter, Plus and Security Plan.
      *
-     * @var float|mixed|string|null
+     * @var float|null
      */
     public readonly ?float $longitude;
 
@@ -75,7 +75,7 @@ class Ip2LocationResponse extends BaseResponse
      * ZIP/Postal code.
      * Availability on Free, Starter, Plus and Security Plan.
      *
-     * @var string|int|mixed|null
+     * @var string|int|null
      */
     public readonly string|int|null $zipCode;
 
@@ -83,7 +83,7 @@ class Ip2LocationResponse extends BaseResponse
      * UTC time zone (with DST supported).
      * Availability on Free, Starter, Plus and Security Plan.
      *
-     * @var string|mixed|null
+     * @var string|null
      */
     public readonly ?string $timeZone;
 
@@ -91,7 +91,7 @@ class Ip2LocationResponse extends BaseResponse
      * Autonomous system number (ASN).
      * Availability on Free, Starter, Plus and Security Plan.
      *
-     * @var string|mixed|null
+     * @var string|null
      */
     public readonly ?string $asn;
 
@@ -99,7 +99,7 @@ class Ip2LocationResponse extends BaseResponse
      * Autonomous system (AS) name.
      * Availability on Free, Starter, Plus and Security Plan.
      *
-     * @var string|mixed|null
+     * @var string|null
      */
     public readonly ?string $as;
 
@@ -107,7 +107,7 @@ class Ip2LocationResponse extends BaseResponse
      * Internet Service Provider or company's name.
      * Availability on Starter, Plus and Security Plan.
      *
-     * @var string|mixed|null
+     * @var string|null
      */
     public readonly ?string $isp;
 
@@ -115,7 +115,7 @@ class Ip2LocationResponse extends BaseResponse
      * Internet domain name associated with IP address range.
      * Availability on Starter, Plus and Security Plan.
      *
-     * @var string|mixed|null
+     * @var string|null
      */
     public readonly ?string $domain;
 
@@ -126,7 +126,7 @@ class Ip2LocationResponse extends BaseResponse
      * COMP = company/T1
      * Availability on Starter, Plus and Security Plan.
      *
-     * @var string|mixed|null
+     * @var string|null
      */
     public readonly ?string $netSpeed;
 
@@ -134,7 +134,7 @@ class Ip2LocationResponse extends BaseResponse
      * The IDD prefix to call the city from another country.
      * Availability on Starter, Plus and Security Plan.
      *
-     * @var string|mixed|null
+     * @var string|null
      */
     public readonly ?string $iddCode;
 
@@ -142,7 +142,7 @@ class Ip2LocationResponse extends BaseResponse
      * A varying length number assigned to geographic areas for calls between cities.
      * Availability on Starter, Plus and Security Plan.
      *
-     * @var string|mixed|null
+     * @var string|null
      */
     public readonly ?string $areaCode;
 
@@ -150,7 +150,7 @@ class Ip2LocationResponse extends BaseResponse
      * The special code to identify the nearest weather observation station.
      * Availability on Starter, Plus and Security Plan.
      *
-     * @var string|mixed|null
+     * @var string|null
      */
     public readonly ?string $weatherStationCode;
 
@@ -158,7 +158,7 @@ class Ip2LocationResponse extends BaseResponse
      * The name of the nearest weather observation station.
      * Availability on Starter, Plus and Security Plan.
      *
-     * @var string|mixed|null
+     * @var string|null
      */
     public readonly ?string $weatherStationName;
 
@@ -167,7 +167,7 @@ class Ip2LocationResponse extends BaseResponse
      * telephone networks, particularly GSM and UMTS networks.
      * Availability on Plus and Security Plan.
      *
-     * @var string|mixed|null
+     * @var string|null
      */
     public readonly ?string $mcc;
 
@@ -176,7 +176,7 @@ class Ip2LocationResponse extends BaseResponse
      * mobile phone operator or carrier.
      * Availability on Plus and Security Plan.
      *
-     * @var string|mixed|null
+     * @var string|null
      */
     public readonly ?string $mnc;
 
@@ -184,7 +184,7 @@ class Ip2LocationResponse extends BaseResponse
      * Commercial brand associated with the mobile carrier.
      * Availability on Plus and Security Plan.
      *
-     * @var string|mixed|null
+     * @var string|null
      */
     public readonly ?string $mobileBrand;
 
@@ -192,7 +192,7 @@ class Ip2LocationResponse extends BaseResponse
      * Average height of city above sea level in meters (m).
      * Availability on Plus and Security Plan.
      *
-     * @var int|mixed|string|null
+     * @var int|null
      */
     public readonly ?int $elevation;
 
@@ -212,7 +212,7 @@ class Ip2LocationResponse extends BaseResponse
      * (RSV) Reserved
      * Availability on Plus and Security Plan.
      *
-     * @var string|mixed|null
+     * @var string|null
      */
     public readonly ?string $usageType;
 
@@ -224,7 +224,7 @@ class Ip2LocationResponse extends BaseResponse
      * (B) Broadcast - One to all
      * Availability on Plus and Security Plan.
      *
-     * @var string|mixed|null
+     * @var string|null
      */
     public readonly ?string $addressType;
 
@@ -280,7 +280,7 @@ class Ip2LocationResponse extends BaseResponse
      * The domain category code based on IAB Tech Lab Content Taxonomy.
      * Availability on Security Plan.
      *
-     * @var string|mixed|null
+     * @var string|null
      */
     public readonly ?string $adsCategory;
 
@@ -290,7 +290,7 @@ class Ip2LocationResponse extends BaseResponse
      * Internet security and filtering appliances.
      * Availability on Security Plan.
      *
-     * @var string|mixed|null
+     * @var string|null
      */
     public readonly ?string $adsCategoryName;
 
@@ -298,7 +298,7 @@ class Ip2LocationResponse extends BaseResponse
      * Whether is a proxy or not
      * Availability on Free, Starter, Plus and Security Plan.
      *
-     * @var bool|mixed|string|null
+     * @var bool|null
      */
     public readonly ?bool $isProxy;
 

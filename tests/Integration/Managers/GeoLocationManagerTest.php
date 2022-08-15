@@ -2,8 +2,8 @@
 
 declare(strict_types=1);
 
-use Midnite81\GeoLocation\Contracts\Services\GeoIp2LocationInterface;
-use Midnite81\GeoLocation\Contracts\Services\GeoIpInfoDbInterface;
+use Midnite81\GeoLocation\Contracts\Services\Ip2LocationInterface;
+use Midnite81\GeoLocation\Contracts\Services\IpInfoDbInterface;
 use Midnite81\GeoLocation\Managers\GeoManager;
 use Midnite81\GeoLocation\Tests\TestCase;
 
@@ -14,7 +14,7 @@ it('returns the default instance', function () {
     $manager = app(GeoManager::class);
 
     expect($manager->driver())
-        ->toBeInstanceOf(GeoIpInfoDbInterface::class);
+        ->toBeInstanceOf(IpInfoDbInterface::class);
 });
 
 it('returns an instance of ip2location', function () {
@@ -22,7 +22,7 @@ it('returns an instance of ip2location', function () {
     $manager = app(GeoManager::class);
 
     expect($manager->driver('ip2location'))
-        ->toBeInstanceOf(GeoIp2LocationInterface::class);
+        ->toBeInstanceOf(Ip2LocationInterface::class);
 });
 
 it('returns an instance of ip info db when called directly', function () {
@@ -30,7 +30,7 @@ it('returns an instance of ip info db when called directly', function () {
     $manager = app(GeoManager::class);
 
     expect($manager->getIpinfodbDriver())
-        ->toBeInstanceOf(GeoIpInfoDbInterface::class);
+        ->toBeInstanceOf(IpInfoDbInterface::class);
 });
 
 it('returns an instance of ip2location when called directly', function () {
@@ -38,5 +38,14 @@ it('returns an instance of ip2location when called directly', function () {
     $manager = app(GeoManager::class);
 
     expect($manager->getIp2locationDriver())
-        ->toBeInstanceOf(GeoIp2LocationInterface::class);
+        ->toBeInstanceOf(Ip2LocationInterface::class);
 });
+
+it('throws an exception if an invalid driver is set', function () {
+    /** @var GeoManager $manager */
+    $manager = app(GeoManager::class);
+
+    config()->set('geolocation.service', 'dummy-driver');
+
+    $manager->driver();
+})->throws(RuntimeException::class, 'Driver [dummy-driver] is not supported');

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Midnite81\GeoLocation\Tests\Integration;
 
-use Midnite81\GeoLocation\Contracts\Services\GeoIp2LocationInterface;
+use Midnite81\GeoLocation\Contracts\Services\Ip2LocationInterface;
 use Midnite81\GeoLocation\Exceptions\Ip2Location\InvalidApiException;
 use Midnite81\GeoLocation\Responses\Ip2LocationResponse;
 use Midnite81\GeoLocation\Tests\TestCase;
@@ -12,8 +12,8 @@ use Midnite81\GeoLocation\Tests\TestCase;
 uses(TestCase::class);
 
 it('can connect to the api and return ip-location object', function () {
-    /** @var GeoIp2LocationInterface $sut */
-    $sut = app(GeoIp2LocationInterface::class);
+    /** @var Ip2LocationInterface $sut */
+    $sut = app(Ip2LocationInterface::class);
 
     $result = $sut->get('8.8.8.8');
 
@@ -58,8 +58,8 @@ it('can connect to the api and return ip-location object', function () {
 it('can throws and exception when invalid api key', function () {
     config()->set('geolocation.services.ip2location.api-key', 'abc');
 
-    /** @var GeoIp2LocationInterface $sut */
-    $sut = app(GeoIp2LocationInterface::class);
+    /** @var Ip2LocationInterface $sut */
+    $sut = app(Ip2LocationInterface::class);
 
     $sut->get('8.8.8.8');
 })->throws(InvalidApiException::class);

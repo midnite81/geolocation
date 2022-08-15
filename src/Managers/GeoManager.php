@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Midnite81\GeoLocation\Managers;
 
 use Illuminate\Support\Str;
-use Midnite81\GeoLocation\Contracts\Services\GeoIp2LocationInterface;
-use Midnite81\GeoLocation\Contracts\Services\GeoIpInfoDbInterface;
+use Midnite81\GeoLocation\Contracts\Services\Ip2LocationInterface;
+use Midnite81\GeoLocation\Contracts\Services\IpInfoDbInterface;
 use RuntimeException;
 
 class GeoManager
@@ -15,9 +15,9 @@ class GeoManager
      * Returns the specified driver if passed, or default if null.
      *
      * @param  string|null  $driver
-     * @return GeoIpInfoDbInterface|GeoIp2LocationInterface
+     * @return IpInfoDbInterface|Ip2LocationInterface
      */
-    public function driver(?string $driver = null): GeoIpInfoDbInterface|GeoIp2LocationInterface
+    public function driver(?string $driver = null): IpInfoDbInterface|Ip2LocationInterface
     {
         $driver = $driver ?? $this->getDefaultDriver();
         $driverName = Str::studly($driver);
@@ -29,21 +29,21 @@ class GeoManager
     /**
      * Returns the Ip Info DB Driver
      *
-     * @return GeoIpInfoDbInterface
+     * @return IpInfoDbInterface
      */
-    public function getIpinfodbDriver(): GeoIpInfoDbInterface
+    public function getIpinfodbDriver(): IpInfoDbInterface
     {
-        return app(GeoIpInfoDbInterface::class);
+        return app(IpInfoDbInterface::class);
     }
 
     /**
      * Returns the Ip 2 Location Driver
      *
-     * @return GeoIp2LocationInterface
+     * @return Ip2LocationInterface
      */
-    public function getIp2locationDriver(): GeoIp2LocationInterface
+    public function getIp2locationDriver(): Ip2LocationInterface
     {
-        return app(GeoIp2LocationInterface::class);
+        return app(Ip2LocationInterface::class);
     }
 
     /**

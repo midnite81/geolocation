@@ -6,10 +6,10 @@ use GuzzleHttp\Client;
 use GuzzleHttp\ClientInterface;
 use Illuminate\Contracts\Support\DeferrableProvider;
 use Illuminate\Support\ServiceProvider;
-use Midnite81\GeoLocation\Contracts\Services\GeoIp2LocationInterface;
-use Midnite81\GeoLocation\Contracts\Services\GeoIpInfoDbInterface;
-use Midnite81\GeoLocation\Services\GeoIp2Location;
-use Midnite81\GeoLocation\Services\GeoIpInfoDb;
+use Midnite81\GeoLocation\Contracts\Services\Ip2LocationInterface;
+use Midnite81\GeoLocation\Contracts\Services\IpInfoDbInterface;
+use Midnite81\GeoLocation\Services\Ip2Location;
+use Midnite81\GeoLocation\Services\IpInfoDb;
 
 class GeoLocationServiceProvider extends ServiceProvider implements DeferrableProvider
 {
@@ -37,9 +37,10 @@ class GeoLocationServiceProvider extends ServiceProvider implements DeferrablePr
     public function register(): void
     {
         $this->app->bind(ClientInterface::class, Client::class);
-        $this->app->bind(GeoIpInfoDbInterface::class, GeoIpInfoDb::class);
-        $this->app->bind(GeoIp2LocationInterface::class, GeoIp2Location::class);
-        $this->app->alias(GeoIpInfoDbInterface::class, 'midnite81.geolocation');
+        $this->app->bind(IpInfoDbInterface::class, IpInfoDb::class);
+        $this->app->bind(Ip2LocationInterface::class, Ip2Location::class);
+        $this->app->alias(IpInfoDbInterface::class, 'midnite81.geolocation.ipinfodb');
+        $this->app->alias(Ip2LocationInterface::class, 'midnite81.geolocation.ip2location');
     }
 
     /**
@@ -49,6 +50,11 @@ class GeoLocationServiceProvider extends ServiceProvider implements DeferrablePr
      */
     public function provides(): array
     {
-        return ['midnite81.geolocation', GeoIpInfoDbInterface::class];
+        return [
+            'midnite81.geolocation.ipinfodb',
+            'midnite81.geolocation.ip2location',
+            IpInfoDbInterface::class,
+            Ip2LocationInterface::class,
+        ];
     }
 }

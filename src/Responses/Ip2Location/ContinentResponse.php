@@ -11,14 +11,14 @@ class ContinentResponse extends BaseResponse
     /**
      * Continent name.
      *
-     * @var string|mixed|null
+     * @var string|null
      */
     public readonly ?string $name;
 
     /**
      * Two-character continent code.
      *
-     * @var string|mixed|null
+     * @var string|null
      */
     public readonly ?string $code;
 
@@ -26,7 +26,7 @@ class ContinentResponse extends BaseResponse
      * The hemisphere of where the country located. The data in array format with first item indicates (north/south)
      * hemisphere and second item indicates (east/west) hemisphere information.
      *
-     * @var array|mixed|string|null
+     * @var array|null
      */
     public readonly ?array $hemisphere;
 

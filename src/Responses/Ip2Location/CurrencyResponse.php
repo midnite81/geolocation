@@ -11,21 +11,21 @@ class CurrencyResponse extends BaseResponse
     /**
      * The currency code
      *
-     * @var string|mixed|null
+     * @var string|null
      */
     public readonly ?string $code;
 
     /**
      * The currency name
      *
-     * @var string|mixed|null
+     * @var string|null
      */
     public readonly ?string $name;
 
     /**
      * The currency symbol
      *
-     * @var string|mixed|null
+     * @var string|null
      */
     public readonly ?string $symbol;
 

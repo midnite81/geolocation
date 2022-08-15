@@ -11,7 +11,7 @@ class CityResponse extends BaseResponse
     /**
      * City name.
      *
-     * @var string|mixed|null
+     * @var string|null
      */
     public readonly ?string $name;
 

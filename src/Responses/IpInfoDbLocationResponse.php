@@ -6,30 +6,95 @@ use Midnite81\Core\Responses\BaseResponse;
 
 class IpInfoDbLocationResponse extends BaseResponse
 {
+    /**
+     * The status code
+     *
+     * @var string|null
+     */
     public readonly ?string $statusCode;
 
+    /**
+     * The status message
+     *
+     * @var string|null
+     */
     public readonly ?string $statusMessage;
 
+    /**
+     * The IP Address
+     *
+     * @var string|null
+     */
     public readonly ?string $ipAddress;
 
+    /**
+     * The code of the country
+     *
+     * @var string|null
+     */
     public readonly ?string $countryCode;
 
+    /**
+     * The name of the country
+     *
+     * @var string|null
+     */
     public readonly ?string $countryName;
 
+    /**
+     * The name of the region
+     *
+     * @var string|null
+     */
     public readonly ?string $regionName;
 
+    /**
+     * The name of the city
+     *
+     * @var string|null
+     */
     public readonly ?string $cityName;
 
+    /**
+     * The zip code
+     *
+     * @var string|null
+     */
     public readonly ?string $zipCode;
 
+    /**
+     * The postcode (alias of zip code)
+     *
+     * @var string|null
+     */
     public readonly ?string $postcode;
 
+    /**
+     * The latitude
+     *
+     * @var string|null
+     */
     public readonly ?string $latitude;
 
+    /**
+     * The longitude
+     *
+     * @var string|null
+     */
     public readonly ?string $longitude;
 
+    /**
+     * The timezone
+     *
+     * @var string|null
+     */
     public readonly ?string $timeZone;
 
+    /**
+     * The address string
+     *
+     * @var string|null
+     */
     public readonly ?string $addressString;
 
     public function __construct(string|array $data)

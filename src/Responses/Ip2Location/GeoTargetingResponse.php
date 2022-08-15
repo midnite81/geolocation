@@ -11,7 +11,7 @@ class GeoTargetingResponse extends BaseResponse
     /**
      * Metro code based on zip/postal code.
      *
-     * @var string|mixed|null
+     * @var string|null
      */
     public readonly ?string $metro;
 

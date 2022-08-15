@@ -5,10 +5,10 @@ declare(strict_types=1);
 use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Psr7\Response;
 use Illuminate\Cache\Repository;
-use Midnite81\GeoLocation\Contracts\Services\GeoIpInfoDbInterface;
+use Midnite81\GeoLocation\Contracts\Services\IpInfoDbInterface;
 use Midnite81\GeoLocation\Enums\Precision;
 use Midnite81\GeoLocation\Responses\IpInfoDbLocationResponse;
-use Midnite81\GeoLocation\Services\GeoIpInfoDb;
+use Midnite81\GeoLocation\Services\IpInfoDb;
 use Midnite81\GeoLocation\Tests\TestCase;
 
 uses(TestCase::class);
@@ -38,7 +38,7 @@ beforeEach(function () {
                  ->andReturn($response);
     /** @var Repository $cache */
     $cache = app()->make(Repository::class);
-    $this->geolocation = new GeoIpInfoDb($this->client, $cache);
+    $this->geolocation = new IpInfoDb($this->client, $cache);
 });
 
 afterAll(function () {
@@ -46,7 +46,7 @@ afterAll(function () {
 });
 
 it('it implements the contract', function () {
-    $this->assertInstanceOf(GeoIpInfoDbInterface::class, $this->geolocation);
+    $this->assertInstanceOf(IpInfoDbInterface::class, $this->geolocation);
 });
 
 it('it accepts city as a precision', function () {

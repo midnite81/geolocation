@@ -11,58 +11,58 @@ class CountryResponse extends BaseResponse
     /**
      * Country name based on ISO 3166.
      *
-     * @var string|mixed|null
+     * @var string|null
      */
     public readonly ?string $name;
 
     /**
      * Three-character country code based on ISO 3166.
      *
-     * @var string|mixed|null
+     * @var string|null
      */
     public readonly ?string $alpha3Code;
 
     /**
      * Three-character country numeric code based on ISO 3166.
      *
-     * @var int|mixed|string|null
+     * @var int|null
      */
     public readonly ?int $numericCode;
 
     /**
      * Native of the country
      *
-     * @var string|mixed|null
+     * @var string|null
      */
     public readonly ?string $demonym;
 
     /**
      * URL of the country flag image.
      *
-     * @var string|mixed|null
+     * @var string|null
      */
     public readonly ?string $flag;
 
     /**
      * Capital of the country.
      *
-     * @var string|mixed|null
+     * @var string|null
      */
     public readonly ?string $capital;
 
     /**
      * Total area in km2.
      *
-     * @var int|mixed|string|null
+     * @var int|null
      */
-    public readonly int $totalArea;
+    public readonly ?int $totalArea;
 
     /**
      * Population of the country.
      *
-     * @var int|mixed|string|null
+     * @var int|null
      */
-    public readonly int $population;
+    public readonly ?int $population;
 
     /**
      * The Currency Response
@@ -81,7 +81,7 @@ class CountryResponse extends BaseResponse
     /**
      * Country-Code Top-Level Domain.
      *
-     * @var string|mixed|null
+     * @var string|null
      */
     public readonly ?string $tld;
 

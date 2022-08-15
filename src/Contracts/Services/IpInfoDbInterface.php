@@ -6,7 +6,7 @@ use GuzzleHttp\Exception\GuzzleException;
 use Midnite81\GeoLocation\Enums\Precision;
 use Midnite81\GeoLocation\Responses\IpInfoDbLocationResponse;
 
-interface GeoIpInfoDbInterface
+interface IpInfoDbInterface
 {
     /**
      * Get IP information

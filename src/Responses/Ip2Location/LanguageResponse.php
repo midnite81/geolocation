@@ -11,16 +11,16 @@ class LanguageResponse extends BaseResponse
     /**
      * The language code
      *
-     * @var string|mixed|null
+     * @var string|null
      */
-    public readonly string $code;
+    public readonly ?string $code;
 
     /**
      * The language name
      *
-     * @var string|mixed|null
+     * @var string|null
      */
-    public readonly string $name;
+    public readonly ?string $name;
 
     public function __construct(string|array $data)
     {

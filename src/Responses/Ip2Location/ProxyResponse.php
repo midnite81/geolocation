@@ -11,7 +11,7 @@ class ProxyResponse extends BaseResponse
     /**
      * Proxy last seen in days.
      *
-     * @var string|int|mixed|null
+     * @var string|int|null
      */
     public readonly string|int|null $lastSeen;
 
@@ -25,7 +25,7 @@ class ProxyResponse extends BaseResponse
      * (SES) Search Engine Robots
      * (RES) Residential proxies
      *
-     * @var string|mixed|null
+     * @var string|null
      */
     public readonly ?string $proxyType;
 
@@ -35,14 +35,14 @@ class ProxyResponse extends BaseResponse
      * (SCANNER) Network security scanners
      * (BOTNET) Malware infected devices
      *
-     * @var string|mixed|null
+     * @var string|null
      */
     public readonly ?string $threat;
 
     /**
      * Name of VPN provider if available.
      *
-     * @var string|mixed|null
+     * @var string|null
      */
     public readonly ?string $provider;
 

@@ -11,14 +11,14 @@ class RegionResponse extends BaseResponse
     /**
      * Region or state name.
      *
-     * @var string|mixed|null
+     * @var string|null
      */
     public readonly ?string $name;
 
     /**
      * ISO3166-2 code.
      *
-     * @var string|mixed|null
+     * @var string|null
      */
     public readonly ?string $code;
 
