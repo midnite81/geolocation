@@ -1,0 +1,11 @@
+parameters:
+    checkMissingIterableValueType: true
+
+    level: 5
+
+    paths:
+        - src
+
+    ignoreErrors:
+
+    excludePaths:
