@@ -62,7 +62,7 @@ Once you have published the config files, you will find a `geolocation.php` file
 # Env
 
 You will need to add the following to your `.env` file and update these with your own
-settings
+settings. Please note you will only need to fill in the api key for the service you are using.
 
 ```dotenv
 GEOLOCATION_IPINFODB_API_KEY=<ip_info_db_api_key>
