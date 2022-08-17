@@ -37,7 +37,7 @@ class ContinentResponse extends BaseResponse
      */
     public readonly ?TranslationResponse $translation;
 
-    public function __construct(string|array $data)
+    public function __construct(string|array $data = [])
     {
         if (is_string($data)) {
             $data = json_decode($data, true);
@@ -45,7 +45,9 @@ class ContinentResponse extends BaseResponse
         $this->name = $data['name'] ?? null;
         $this->code = $data['code'] ?? null;
         $this->hemisphere = $data['hemisphere'] ?? null;
-        $this->translation = !empty($data['translation']) ? new TranslationResponse($data['translation']) : null;
+        $this->translation = !empty($data['translation'])
+            ? new TranslationResponse($data['translation'])
+            : new TranslationResponse();
         parent::__construct();
     }
 }

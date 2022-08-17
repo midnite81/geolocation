@@ -43,16 +43,16 @@ it('can connect to the api and return ip-location object', function () {
         ->and($result->elevation)->toBeNull()
         ->and($result->usageType)->toBeNull()
         ->and($result->addressType)->toBeNull()
-        ->and($result->continent)->toBeNull()
-        ->and($result->country)->toBeNull()
-        ->and($result->region)->toBeNull()
-        ->and($result->city)->toBeNull()
-        ->and($result->timeZoneInfo)->toBeNull()
-        ->and($result->geoTargeting)->toBeNull()
+        ->and($result->continent->name)->toBeNull()
+        ->and($result->country->name)->toBeNull()
+        ->and($result->region->name)->toBeNull()
+        ->and($result->city->name)->toBeNull()
+        ->and($result->timeZoneInfo->olson)->toBeNull()
+        ->and($result->geoTargeting->metro)->toBeNull()
         ->and($result->adsCategory)->toBeNull()
         ->and($result->adsCategoryName)->toBeNull()
         ->and($result->isProxy)->toBeFalse()
-        ->and($result->proxy)->toBeNull();
+        ->and($result->proxy->lastSeen)->toBeNull();
 });
 
 it('can throws and exception when invalid api key', function () {

@@ -232,49 +232,49 @@ class Ip2LocationResponse extends BaseResponse
      * The Continent Response
      * Availability on Plus and Security Plan.
      *
-     * @var ContinentResponse|null
+     * @var ContinentResponse
      */
-    public readonly ?ContinentResponse $continent;
+    public readonly ContinentResponse $continent;
 
     /**
      * The Country Response
      * Availability on Plus and Security Plan.
      *
-     * @var CountryResponse|null
+     * @var CountryResponse
      */
-    public readonly ?CountryResponse $country;
+    public readonly CountryResponse $country;
 
     /**
      * The Region Response
      * Availability on Plus and Security Plan.
      *
-     * @var RegionResponse|null
+     * @var RegionResponse
      */
-    public readonly ?RegionResponse $region;
+    public readonly RegionResponse $region;
 
     /**
      * The City Response
      * Availability on Plus and Security Plan.
      *
-     * @var CityResponse|null
+     * @var CityResponse
      */
-    public readonly ?CityResponse $city;
+    public readonly CityResponse $city;
 
     /**
      * The Time Zone Info Response
      * Availability on Plus and Security Plan.
      *
-     * @var TimeZoneResponse|null
+     * @var TimeZoneResponse
      */
-    public readonly ?TimeZoneResponse $timeZoneInfo;
+    public readonly TimeZoneResponse $timeZoneInfo;
 
     /**
      * The GeoTargeting Response
      * Availability on Plus and Security Plan.
      *
-     * @var GeoTargetingResponse|null
+     * @var GeoTargetingResponse
      */
-    public readonly ?GeoTargetingResponse $geoTargeting;
+    public readonly GeoTargetingResponse $geoTargeting;
 
     /**
      * The domain category code based on IAB Tech Lab Content Taxonomy.
@@ -306,9 +306,17 @@ class Ip2LocationResponse extends BaseResponse
      * The Proxy Response
      * Availability on the Security Plan
      *
-     * @var ProxyResponse|null
+     * @var ProxyResponse
      */
-    public readonly ?ProxyResponse $proxy;
+    public readonly ProxyResponse $proxy;
+
+    /**
+     * A string with city, region and country.
+     * Availability on all plans
+     *
+     * @var string
+     */
+    public readonly string $addressString;
 
     public function __construct(string|array $data)
     {
@@ -339,16 +347,45 @@ class Ip2LocationResponse extends BaseResponse
         $this->elevation = $data['elevation'] ?? null;
         $this->usageType = $data['usage_type'] ?? null;
         $this->addressType = $data['address_type'] ?? null;
-        $this->continent = !empty($data['continent']) ? new ContinentResponse($data['continent']) : null;
-        $this->country = !empty($data['country']) ? new CountryResponse($data['country']) : null;
-        $this->region = !empty($data['region']) ? new RegionResponse($data['region']) : null;
-        $this->city = !empty($data['city']) ? new CityResponse($data['city']) : null;
-        $this->timeZoneInfo = !empty($data['time_zone_info']) ? new TimeZoneResponse($data['time_zone_info']) : null;
-        $this->geoTargeting = !empty($data['geotargeting']) ? new GeoTargetingResponse($data['geotargeting']) : null;
+        $this->continent = !empty($data['continent'])
+            ? new ContinentResponse($data['continent'])
+            : new ContinentResponse();
+        $this->country = !empty($data['country']) ? new CountryResponse($data['country']) : new CountryResponse();
+        $this->region = !empty($data['region']) ? new RegionResponse($data['region']) : new RegionResponse();
+        $this->city = !empty($data['city']) ? new CityResponse($data['city']) : new CityResponse();
+        $this->timeZoneInfo = !empty($data['time_zone_info'])
+            ? new TimeZoneResponse($data['time_zone_info'])
+            : new TimeZoneResponse();
+        $this->geoTargeting = !empty($data['geotargeting'])
+            ? new GeoTargetingResponse($data['geotargeting'])
+            : new GeoTargetingResponse();
         $this->adsCategory = $data['ads_category'] ?? null;
         $this->adsCategoryName = $data['ads_category_name'] ?? null;
         $this->isProxy = $data['is_proxy'] ?? null;
-        $this->proxy = !empty($data['proxy']) ? new ProxyResponse($data['proxy']) : null;
+        $this->proxy = !empty($data['proxy']) ? new ProxyResponse($data['proxy']) : new ProxyResponse();
+        $this->addressString = $this->createAddressString();
         parent::__construct();
+    }
+
+    /**
+     * Return Address String
+     *
+     * @return string
+     */
+    public function createAddressString(): string
+    {
+        $address = [
+            $this->cityName,
+            $this->regionName,
+            $this->countryName,
+        ];
+
+        foreach ($address as $k => $v) {
+            if (empty($v)) {
+                unset($address[$k]);
+            }
+        }
+
+        return implode(', ', $address);
     }
 }

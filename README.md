@@ -4,17 +4,32 @@ A IP Info DB integration for Laravel
 
 # Versioning
 
-| Version |Branch|PHP| Laravel |Notes|
-|---------|---|---|-----|---|
-| ^4.0    |master/v4|\>=8.1| \>=8|Update to include x, moved to php 8.1|
-| ^3.0    |v3|\>=7.4| \>=6 |Facade has been removed and guzzle dependency has been updated to version 7|
-| ^2.0    |v2|\>=5.6| \>=5 |Corrects issues with composer 2.0|
-| ^1.0    |v1|\>=5.6| \>=5 |First release - not compatible with composer 2.0|
+| Version | Branch    | PHP    | Laravel | Notes                                                                        |
+|---------|-----------|--------|---------|------------------------------------------------------------------------------|
+| ^4.0    | master/v4 | \>=8.1 | \>=8    | Update to include wrap Ip2Location in addition to IpInfoDb, moved to php 8.1 |
+| ^3.0    | v3        | \>=7.4 | \>=6    | Facade has been removed and guzzle dependency has been updated to version 7  |
+| ^2.0    | v2        | \>=5.6 | \>=5    | Corrects issues with composer 2.0                                            |
+| ^1.0    | v1        | \>=5.6 | \>=5    | First release - not compatible with composer 2.0                             |
+
+# Upgrading to v4.0
+
+Please note: 
+
+- version 4 brings in the ability to wrap both the IpInfoDb service (as was available in previous versions)
+and the Ip2Location service.  IpInfoDb are not accepting new registrations and are asking users to register at 
+Ip2Location instead. 
+- version 4 minimum requirements are php 8.1 to make use of the additional features php 8.1 brings, such as enums
+and better type safety. 
+- version 4 has an updated config file. If you are upgrading, I would suggest checking out the 
+[config file](/config/geolocation.php) and updating your local instance of it. 
+- a change has been made to the caching from minutes to seconds.
+
 
 # Installation
 
 If installing on anything below PHP 8.1, please checkout the v2 or v3 branch and follow the
-instructions on the readme for that branch.
+instructions on the readme for that branch. Please note ip2location is not supported on previous versions of this 
+package
 
 This package requires PHP 8.1+, and includes a Laravel Service Provider.
 
@@ -49,54 +64,32 @@ Once you have published the config files, you will find a `geolocation.php` file
 You will need to add the following to your `.env` file and update these with your own
 settings
 
-    GEOLOCATION_API_KEY=<key>
-    GEOLOCATION_CACHE=<duration_in_minutes>
-    GEOLOCATION_SERVICE=<service>
+```dotenv
+GEOLOCATION_IPINFODB_API_KEY=<ip_info_db_api_key>
+GEOLOCATION_IP2LOCATION_API_KEY=<ip2location_api_key>
+GEOLOCATION_CACHE=<duration_in_seconds>
+```
 
 # Get your GeoLocation API Key
 
-Before using this package you must get an API Key from IP Info DB. Please access
-http://ipinfodb.com/register.php and after registering and confirming your email address
-your api key will be show. Please copy and set to your `.env` file on
-`GEOLOCATION_API_KEY` option.
+Before using this package you'll need to obtain an API Key from either [IpInfoDb](http://ipinfodb.com/register.php) 
+which is no longer accepting new registrations or [Ip2Location](https://www.ip2location.io/sign-up).
 
-# Example Usage
+Once you have signed up you will need to add your api key to the relevant `.env` key; `GEOLOCATION_IPINFODB_API_KEY` for
+IpInfoDb or `GEOLOCATION_IP2LOCATION_API_KEY` for Ip2Location.
 
-    use Midnite81\GeoLocation\Contracts\Services\GeoLocationInterface;
-    use Illuminate\Http\Request;
-    
-    public function index(GeoLocationInterface $geo, Request $request) 
-    {
-        $ipLocation = $geo->getCity($request->ip());
-        
-        // if you do $geo->get($request->ip()), the default precision is now city
-    
-        // $ipLocation is an IpLocation Object
-        
-        echo $ipLocation->ipAddress; // e.g. 127.0.0.1
-        
-        echo $ipLocation->getAddressString(); // e.g. London, United Kingdom
-        
-        // the object has a toJson() and toArray() method on it 
-        // so you can die and dump an array.
-        dd($ipLocation->toArray()); 
+# Caching
 
-    }
+This package allows you to cache responses, however it is your responsibility to ensure you're not breaking any 
+terms and conditions of use. 
 
-# Methods on IpLocation
+# Rate Limiting
 
-    $ipLocation->getStatusCode(); // returns status code of request (e.g. 200)
-    $ipLocation->getStatusMessage(); // returns any status message to go with code
-    $ipLocation->getIpAddress(); // the geolocation IP requested
-    $ipLocation->getCountryCode(); // country code of the IP e.g. GB
-    $ipLocation->getCountryName(); // country name of the IP e.g. United Kingdom
-    $ipLocation->getRegionName(); // region name of the IP e.g. England
-    $ipLocation->getCityName(); // city name of the IP e.g. London
-    $ipLocation->getZipCode(); // postcode of the IP e.g. SE01 1AA
-    $ipLocation->getPostCode(); // postcode of the IP e.g. SE01 1AA
-    $ipLocation->getLatitude(); // latitude of the IP e.g. 53.4030
-    $ipLocation->getLongitude(); // longitude of the IP e.g. -1.201
-    $ipLocation->getTimeZone(); // timezone of the IP e.g. +01:00
-    $ipLocation->getAddressString(); // gets the city, region and country as a string
-    $ipLocation->toArray(); // returns object as an array
-    $ipLocation->toJson(); // returns object as a json object
+This package does not set any rate limiting internally. You should ensure that your application adheres to any rate
+limiting set by your chosen provider. 
+
+
+# Example Usage and Available Methods and Properties
+
+- [IpInfoDb example usage and available methods](/readme_ipinfodb.md)
+- [Ip2Location example usage and available methods](/readme_ip2location.md)

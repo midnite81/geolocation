@@ -50,7 +50,7 @@ class TimeZoneResponse extends BaseResponse
      */
     public readonly ?string $sunset;
 
-    public function __construct(string|array $data)
+    public function __construct(string|array $data = [])
     {
         if (is_string($data)) {
             $data = json_decode($data, true);

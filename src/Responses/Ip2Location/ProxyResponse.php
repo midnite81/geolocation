@@ -46,7 +46,7 @@ class ProxyResponse extends BaseResponse
      */
     public readonly ?string $provider;
 
-    public function __construct(string|array $data)
+    public function __construct(string|array $data = [])
     {
         if (is_string($data)) {
             $data = json_decode($data, true);

@@ -12,7 +12,7 @@ class TranslationResponse extends BaseResponse
 
     public readonly ?string $value;
 
-    public function __construct(string|array $data)
+    public function __construct(string|array $data = [])
     {
         if (is_string($data)) {
             $data = json_decode($data, true);

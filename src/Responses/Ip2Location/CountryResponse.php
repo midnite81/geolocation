@@ -67,16 +67,16 @@ class CountryResponse extends BaseResponse
     /**
      * The Currency Response
      *
-     * @var CurrencyResponse|null
+     * @var CurrencyResponse
      */
-    public readonly ?CurrencyResponse $currency;
+    public readonly CurrencyResponse $currency;
 
     /**
      * The Language Response
      *
-     * @var LanguageResponse|null
+     * @var LanguageResponse
      */
-    public readonly ?LanguageResponse $language;
+    public readonly LanguageResponse $language;
 
     /**
      * Country-Code Top-Level Domain.
@@ -88,11 +88,11 @@ class CountryResponse extends BaseResponse
     /**
      * The Translation Response
      *
-     * @var TranslationResponse|null
+     * @var TranslationResponse
      */
-    public readonly ?TranslationResponse $translation;
+    public readonly TranslationResponse $translation;
 
-    public function __construct(string|array $data)
+    public function __construct(string|array $data = null)
     {
         if (is_string($data)) {
             $data = json_decode($data, true);
@@ -105,10 +105,12 @@ class CountryResponse extends BaseResponse
         $this->capital = $data['capital'] ?? null;
         $this->totalArea = $data['total_area'] ?? null;
         $this->population = $data['population'] ?? null;
-        $this->currency = !empty($data['currency']) ? new CurrencyResponse($data['currency']) : null;
-        $this->language = !empty($data['language']) ? new LanguageResponse($data['language']) : null;
-        $this->tld = $data['tld'];
-        $this->translation = !empty($data['translation']) ? new TranslationResponse($data['translation']) : null;
+        $this->currency = !empty($data['currency']) ? new CurrencyResponse($data['currency']) : new CurrencyResponse();
+        $this->language = !empty($data['language']) ? new LanguageResponse($data['language']) : new LanguageResponse();
+        $this->tld = $data['tld'] ?? null;
+        $this->translation = !empty($data['translation'])
+            ? new TranslationResponse($data['translation'])
+            : new TranslationResponse();
         parent::__construct();
     }
 }

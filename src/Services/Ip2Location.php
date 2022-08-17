@@ -13,6 +13,7 @@ use Midnite81\GeoLocation\Exceptions\Ip2Location\InternalServerException;
 use Midnite81\GeoLocation\Exceptions\Ip2Location\InvalidApiException;
 use Midnite81\GeoLocation\Exceptions\Ip2Location\InvalidIpException;
 use Midnite81\GeoLocation\Exceptions\Ip2Location\InvalidLanguageCodeException;
+use Midnite81\GeoLocation\Exceptions\Ip2Location\RetrievalException;
 use Midnite81\GeoLocation\Exceptions\Ip2Location\TranslationNotAvailableException;
 use Midnite81\GeoLocation\Responses\Ip2LocationResponse;
 
@@ -47,6 +48,7 @@ class Ip2Location implements Ip2LocationInterface
      * @throws InvalidIpException
      * @throws InvalidLanguageCodeException
      * @throws TranslationNotAvailableException
+     * @throws RetrievalException
      */
     public function get(string $ip, ?Language $language = null): Ip2LocationResponse
     {
@@ -90,6 +92,7 @@ class Ip2Location implements Ip2LocationInterface
      * @throws InvalidIpException
      * @throws InvalidLanguageCodeException
      * @throws TranslationNotAvailableException
+     * @throws RetrievalException
      */
     protected function requestData(string $ip, ?Language $language = null): string
     {
@@ -112,16 +115,16 @@ class Ip2Location implements Ip2LocationInterface
             $error = json_decode($contents);
 
             match ($error->error->error_code) {
-                10000 => throw new InvalidApiException(),
-                10001 => throw new InvalidIpException(),
-                10002 => throw new InternalServerException(),
-                10003 => throw new InvalidLanguageCodeException(),
-                10004 => throw new TranslationNotAvailableException(),
-                default => '',
+                10000 => throw new InvalidApiException(previous:  $e),
+                10001 => throw new InvalidIpException(previous:  $e),
+                10002 => throw new InternalServerException(previous:  $e),
+                10003 => throw new InvalidLanguageCodeException(previous:  $e),
+                10004 => throw new TranslationNotAvailableException(previous:  $e),
+                default => throw new RetrievalException(previous:  $e),
             };
         }
 
-        return isset($response) ? (string) $response->getBody() : '';
+        return (string) $response->getBody();
     }
 
     /**

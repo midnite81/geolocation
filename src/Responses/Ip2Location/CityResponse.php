@@ -22,13 +22,15 @@ class CityResponse extends BaseResponse
      */
     public readonly ?TranslationResponse $translation;
 
-    public function __construct(string|array $data)
+    public function __construct(string|array $data = [])
     {
         if (is_string($data)) {
             $data = json_decode($data, true);
         }
         $this->name = $data['name'] ?? null;
-        $this->translation = !empty($data['translation']) ? new TranslationResponse($data['translation']) : null;
+        $this->translation = !empty($data['translation'])
+            ? new TranslationResponse($data['translation'])
+            : new TranslationResponse();
         parent::__construct();
     }
 }

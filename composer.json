@@ -1,9 +1,14 @@
 {
     "name": "midnite81/geolocation",
-    "description": "A laravel package to hook into IP Info DB Service",
+    "description": "A laravel package which wraps the IP Info DB and IP2Location Services",
     "keywords": [
         "sms",
-        "laravel"
+        "laravel",
+        "IpInfoDb",
+        "IP Info DB",
+        "Ip2Location",
+        "Geolocation",
+        "Location"
     ],
     "license": "MIT",
     "authors": [

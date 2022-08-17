@@ -17,20 +17,6 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Service
-    |--------------------------------------------------------------------------
-    |
-    | You can only provide one of the following values as the service
-    | ipinfodb
-    | ip2location
-    |
-    | IpInfoDb is the legacy (and default) service.
-    |
-    */
-    'service' => env('GEOLOCATION_SERVICE', 'ipinfodb'),
-
-    /*
-    |--------------------------------------------------------------------------
     | Services
     |--------------------------------------------------------------------------
     |
