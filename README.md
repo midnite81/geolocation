@@ -72,7 +72,7 @@ GEOLOCATION_CACHE=<duration_in_seconds>
 
 # Get your GeoLocation API Key
 
-Before using this package you'll need to obtain an API Key from either [IpInfoDb](http://ipinfodb.com/register.php)
+Before using this package you'll need to obtain an API Key from either [IpInfoDb](http://ipinfodb.com/register)
 which is no longer accepting new registrations or [Ip2Location](https://www.ip2location.io/sign-up).
 
 Once you have signed up you will need to add your api key to the relevant `.env` key; `GEOLOCATION_IPINFODB_API_KEY` for
